@@ -1,6 +1,8 @@
 .idea
 Fame.iml
 
+logs/
+mysql/
 ### Java template
 # Compiled class file
 target
