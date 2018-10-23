@@ -42,7 +42,8 @@ module.exports = {
     { src: '~/plugins/clickoutside.js' },
     { src: '~/plugins/filters.js' },
     { src: '~/plugins/global.js' },
-    { src: '~/plugins/tools.js' }
+    { src: '~/plugins/tools.js' },
+    { src: '~/plugins/echarts.js'},
   ],
   router: {
     linkActiveClass: 'active',
