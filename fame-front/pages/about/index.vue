@@ -1,7 +1,5 @@
 <template>
   <div id="about">
-		<demo-charts/>
-
     <div class="markdown-body" v-html="content" v-highlight>
     </div>
 
@@ -14,13 +12,12 @@
 
 <script type="text/ecmascript-6">
   import BigImg from '~/components/BigImg.vue'
-	import DemoCharts from '~/components/DemoCharts.vue'
 
   const pageTitle = 'About'
 
   export default {
     head () {
-    return { title: `关于` }
+      return { title: `关于` }
     },
     fetch ({ store, params }) {
       return store.dispatch('getPage', pageTitle)
@@ -32,8 +29,7 @@
       }
     },
     components: {
-    BigImg,
-    DemoCharts
+      BigImg
     },
     computed: {
       content () {

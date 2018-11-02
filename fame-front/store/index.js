@@ -3,16 +3,15 @@ import api from '~/plugins/api'
 export const actions = {
   // 文章详情
   async getArticle ({ commit }, id) {
-    let { data } = await api.getArticle(id)
+    let { data } = ''
     commit('article/SET_DETAIL', data)
   },
   // 文章列表
   async getArticles ({ commit }, page) {
-    let { data } = await api.getArticles(page)
     let list = {
-      data: data.list,
-      totalPage: data.pages,
-      currentPage: data.pageNum || 1
+      data: ['a'],
+      totalPage: 1,
+      currentPage: 1
     }
     commit('article/SET_LIST', list)
   },
