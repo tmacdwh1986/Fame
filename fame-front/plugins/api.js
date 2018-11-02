@@ -17,6 +17,9 @@ const api = {
   getTags () {
     return get('/tag')
   },
+  getDistance () {
+    return get('/Distance')
+  },
   getPage (title) {
     return get('/page/' + title)
   },

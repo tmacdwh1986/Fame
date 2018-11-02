@@ -273,7 +273,7 @@ public class HomeController extends BaseController {
     }
 
 
-	@PostMapping("/statDayDistanceDistr")
+	@PostMapping("/Distance")
 	public RestResponse statDayDistance(HttpServletRequest request, HttpServletResponse response) {
 		List<Map<String, Object>> retList = new ArrayList<Map<String, Object>>();
 		String flag = request.getParameter("flag");

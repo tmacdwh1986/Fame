@@ -3,6 +3,7 @@ package com.zbw.fame.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.zbw.fame.dataobject.TripDistance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,9 @@ public class DayDistanceServiceImpl implements DayDistanceService {
 
 	@Autowired
 	private DayDistanceRepository dayDistanceRepository;
+
+	@Autowired
+	private TripDistance tripDistanceRepository;
 
 	@Override
 	public List<VehicleDistance> statDayDistance(String holidayFlag, String city) {
@@ -81,4 +85,8 @@ public class DayDistanceServiceImpl implements DayDistanceService {
 		return ret;
 	}
 
+	@Override
+	public List<VehicleDistance> statTripDistance(String holidayFlag) {
+		return null;
+	}
 }

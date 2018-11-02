@@ -26,6 +26,10 @@ export const actions = {
     let { data } = await api.getTags()
     commit('tag/SET_DATA', data)
   },
+  async getDistance ({ commit }) {
+    let { data } = await api.getDistance()
+    commit('tag/SET_DATA', data)
+  },
   // 归档
   async getArchive ({ commit }) {
     let { data } = await api.getArchives()

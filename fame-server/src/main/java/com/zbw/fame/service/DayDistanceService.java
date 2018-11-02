@@ -8,4 +8,6 @@ public interface DayDistanceService {
 	public List<VehicleDistance> statDayDistance(String holidayFlag, String city);
 
 	public List<VehicleDistance> statVinAvgDayDistance(String holidayFlag, String city);
+
+	public List<VehicleDistance> statTripDistance(String holidayFlag);
 }
