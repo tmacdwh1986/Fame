@@ -33,9 +33,7 @@
       return {
         links: [
           { path: '/', name: '首页' },
-          { path: '/category', name: '分类' },
-          { path: '/tag', name: '标签' },
-          { path: '/archive', name: '归档' },
+          { path: '/test', name: '测试' },
           { path: '/about', name: '关于' }
         ],
         menuOpen: false

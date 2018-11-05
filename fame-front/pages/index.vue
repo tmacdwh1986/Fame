@@ -1,5 +1,10 @@
 <template>
   <div>
+    <demo-charts id="chart1" :option="option1"/>
+    <demo-charts id="chart2" :option="option2"/>
+    <demo-charts id="chart3" :option="option3"/>
+    
+
     <div v-for="article in articles" :key="article.id" class="article-item">
       <h2 class="article-head text-bold">
         <nuxt-link :to="{ path: '/article/'+article.id }">{{article.title}}</nuxt-link>
@@ -29,6 +34,8 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import DemoCharts from '~/components/DemoCharts.vue'
+  
   export default {
     watchQuery: ['page'],
     key: (to) => to.fullPath,
@@ -40,6 +47,101 @@
     },
     fetch ({ store, query }) {
       return store.dispatch('getArticles', query.page)
+    },
+    data () {
+      // Fake data to validate
+      return {
+        // Line Chart
+        chartData1: {
+          xData: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子'],
+          sData: [5, 20, 36, 10, 10, 70]
+        },
+        option1: {
+          title: {
+            text: 'Line Chart'
+          },
+          legend: {
+            data: ['销量']
+          },
+          xAxis: {
+            data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+          },
+          yAxis: [{
+            type: 'value'
+          }],
+          series: [{
+            name: '销量',
+            type: 'line',
+            data: [5, 20, 36, 10, 10, 70]
+          }]
+        },
+        // Pie Chart
+        chartData2: {
+          xData: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子'],
+          sData: [5, 20, 36, 10, 10, 70]
+        },
+        option2: {
+          title: {
+            text: 'Pie Chart'
+          },
+          legend: {
+            data: ['销量']
+          },
+          xAxis: {
+            data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+          },
+          yAxis: [{
+            type: 'value'
+          }],
+          series: [{
+            name: '销量',
+            type: 'pie',
+            data: [5, 20, 36, 10, 10, 70]
+          }]
+        },
+        // Bar Chart
+        chartData3: {
+          xData: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子'],
+          sData: [5, 20, 36, 10, 10, 70]
+        },
+        option3: {
+          title: {
+            text: 'Bar Chart'
+          },
+          legend: {
+            data: ['销量']
+          },
+          xAxis: {
+            data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+          },
+          yAxis: [{
+            type: 'value'
+          }],
+          series: [{
+            name: '销量',
+            type: 'bar',
+            data: [5, 20, 36, 10, 10, 70]
+          }]
+        }
+      }
+    },
+    components: {
+      DemoCharts
+    },
+    mounted () {
+      this.refreshData()
+    },
+    methods: {
+      refreshData () {
+        let chartData = [this.chartData1, this.chartData2, this.chartData3]
+        let option = [this.option1, this.option2, this.option3]
+        for (let i = 0; i < chartData.length; i++) {
+          for (let j = 0; j < chartData[i].length; j++) {
+            option[i].xAxis.data.push(chartData[i].xData[j])
+            option[i].series[0].data.push(chartData[i].sData[j])
+          }
+        }
+      }
     },
     computed: {
       articles () {
