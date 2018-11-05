@@ -2,7 +2,7 @@
   <div>
     <div class="tag-list">
       <a v-for="tag in tags" :key="tag.id" class="tag-link" @click="changeArticles(tag.name)">
-        <span class="tag chip">
+        <span class="tag chip" v-bind:class="{'tag-active':tag.name===activeTag}">
             {{tag.name}}
         </span>
       </a>
@@ -37,6 +37,7 @@
       return {
         articles: [],
         tagTitle: '',
+        activeTag: '',
         show: false
       }
     },
@@ -44,6 +45,7 @@
       changeArticles (name) {
         let tag = this.tags.find(tag => Object.is(tag.name, name))
         if (tag !== null) {
+          this.activeTag = name
           this.show = false
           this.tagTitle = tag.name
           this.articles = tag.articles
@@ -77,6 +79,15 @@
     margin-top: -5px;
     transition: all 0.2s;
   }
+
+  .tag-active {
+    background: #acb3c2;
+    color: #f0f1f4;
+    box-shadow: 0 0 3px rgba(14, 14, 14, 0.3);
+    margin-top: -5px;
+    transition: all 0.2s;
+  }
+
   .tag-content {
     margin: 20px auto;
     width: 75%;
