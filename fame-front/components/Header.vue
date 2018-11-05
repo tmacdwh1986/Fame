@@ -33,6 +33,7 @@
       return {
         links: [
           { path: '/', name: '首页' },
+          { path: '/tag', name: 'tag'},
           { path: '/test', name: '测试' },
           { path: '/about', name: '关于' }
         ],
