@@ -15,6 +15,7 @@ import com.zbw.fame.util.FameConsts;
 import com.zbw.fame.util.FameUtil;
 import com.zbw.fame.util.RestResponse;
 import com.zbw.fame.util.Types;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -22,11 +23,7 @@ import com.zbw.fame.dto.VehicleDistance;
 import com.zbw.fame.service.DayDistanceService;
 import com.zbw.fame.util.RestResponse;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,6 +34,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author zbw
  * @since 2017/7/15 18:29
  */
+@Slf4j
 @RestController
 @RequestMapping("/api")
 public class HomeController extends BaseController {
@@ -273,13 +271,17 @@ public class HomeController extends BaseController {
     }
 
 
-	@PostMapping("/Distance")
+	@GetMapping("/Distance")
 	public RestResponse statDayDistance(HttpServletRequest request, HttpServletResponse response) {
+
 		List<Map<String, Object>> retList = new ArrayList<Map<String, Object>>();
-		String flag = request.getParameter("flag");
-		String city = request.getParameter("city");
+		// String flag = request.getParameter("flag");
+		// String city = request.getParameter("city");
+		String flag = "1";
+		String city = "ShangHai";
 		String[] isWorkArr = new String[] { "1", "2", "0" };
 		List<VehicleDistance> list = new ArrayList<VehicleDistance>();
+        log.info("[DEBUG]distance entry point");
 		for (int i = 0; i < isWorkArr.length; i++) {
 			Map<String, Object> ret = new HashMap<String, Object>();
 			list = dayDistanceService.statDayDistance(isWorkArr[i], city);
@@ -331,9 +333,11 @@ public class HomeController extends BaseController {
 				yAxis[j] = (float) countArr[j] * 100 / total;
 			}
 			ret.put("xAxis", xAxis);
+            log.info("xAxis", Arrays.toString(xAxis));
 			ret.put("yAxis", yAxis);
-
+            log.info("yAxis",Arrays.toString(yAxis));
 			ret.put("xAxisAccu", xAxisAccu);
+            log.info("xAxisAccu",Arrays.toString(xAxisAccu));
 			float[] yAxisAccu = new float[countArr.length];
 			for (int k = 0; k < countArr.length; k++) {
 				if (k == 0 || k == countArr.length - 1) {
@@ -348,6 +352,8 @@ public class HomeController extends BaseController {
 
 			}
 			ret.put("yAxisAccu", yAxisAccu);
+			log.info("yAxisAccu",Arrays.toString(yAxisAccu));
+            log.info("[DEBUG]distance return value: {}", ret);
 
 			retList.add(ret);
 		}

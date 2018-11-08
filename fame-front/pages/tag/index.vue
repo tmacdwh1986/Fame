@@ -26,7 +26,7 @@
       return { title: `标签` }
     },
     fetch ({ store }) {
-      return store.dispatch('getTags')
+      return store.dispatch('getDistance')
     },
     computed: {
       tags () {

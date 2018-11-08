@@ -13,7 +13,6 @@ services:
     - ./logs/nginx:/var/log/nginx
     depends_on:
     - fame-server
-    - fame-admin
     - fame-front
 
   fame-mysql:
