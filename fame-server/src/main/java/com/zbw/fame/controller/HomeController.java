@@ -271,7 +271,7 @@ public class HomeController extends BaseController {
     }
 
 
-	@GetMapping("/Distance")
+	@GetMapping("Distance")
 	public RestResponse statDayDistance(HttpServletRequest request, HttpServletResponse response) {
 
 		List<Map<String, Object>> retList = new ArrayList<Map<String, Object>>();
@@ -333,11 +333,8 @@ public class HomeController extends BaseController {
 				yAxis[j] = (float) countArr[j] * 100 / total;
 			}
 			ret.put("xAxis", xAxis);
-            log.info("xAxis", Arrays.toString(xAxis));
 			ret.put("yAxis", yAxis);
-            log.info("yAxis",Arrays.toString(yAxis));
 			ret.put("xAxisAccu", xAxisAccu);
-            log.info("xAxisAccu",Arrays.toString(xAxisAccu));
 			float[] yAxisAccu = new float[countArr.length];
 			for (int k = 0; k < countArr.length; k++) {
 				if (k == 0 || k == countArr.length - 1) {
@@ -352,7 +349,6 @@ public class HomeController extends BaseController {
 
 			}
 			ret.put("yAxisAccu", yAxisAccu);
-			log.info("yAxisAccu",Arrays.toString(yAxisAccu));
             log.info("[DEBUG]distance return value: {}", ret);
 
 			retList.add(ret);
