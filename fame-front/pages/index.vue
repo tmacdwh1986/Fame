@@ -1,8 +1,7 @@
 <template>
   <div>
-    <demo-charts id="chart1" :option="option1"/>
-    <demo-charts id="chart2" :option="option2"/>
-    <demo-charts id="chart3" :option="option3"/>
+    <demo-charts id="dayDistChart" :option="dayDistOption"/>
+    <demo-charts id="dayDistAccuChart" :option="dayDistAccuOption"/>
     
 
     <div v-for="article in articles" :key="article.id" class="article-item">
@@ -35,7 +34,8 @@
 
 <script type="text/ecmascript-6">
   import DemoCharts from '~/components/DemoCharts.vue'
-  
+  import axios from 'axios'
+
   export default {
     watchQuery: ['page'],
     key: (to) => to.fullPath,
@@ -52,76 +52,129 @@
       // Fake data to validate
       return {
         // Line Chart
-        chartData1: {
-          xData: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子'],
-          sData: [5, 20, 36, 10, 10, 70]
-        },
-        option1: {
+        dayDistOption: {
           title: {
-            text: 'Line Chart'
+            text: 'Day Distance Distribution',
+            x: 'center',
+            align: 'right'
+          },
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+              type: 'cross',
+              crossStyle: {
+                color: '#999'
+              }
+            }
           },
           legend: {
-            data: ['销量']
+            x: 'right',
+            data: ['Holiday', 'Work day', '', 'Natural day']
+          },
+          grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
           },
           xAxis: {
-            data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+            type: 'category',
+            boundaryGap: true,
+            data: [ ],
+            axisLabel: {
+              interval: 0,
+              rotate: 270
+            }
           },
-          yAxis: [{
-            type: 'value'
-          }],
-          series: [{
-            name: '销量',
-            type: 'line',
-            data: [5, 20, 36, 10, 10, 70]
-          }]
+          yAxis: {
+            type: 'value',
+            axisLabel: {
+              show: true,
+              interval: 'auto',
+              formatter: '{value} %'
+            },
+            show: true
+          },
+          series: [
+            {
+              name: 'Holiday',
+              type: 'bar',
+              barGap: 0,
+              data: [ ]
+            },
+            {
+              name: 'Work day',
+              type: 'bar',
+              data: [ ]
+            },
+            {
+              name: 'Natural day',
+              type: 'bar',
+              data: [ ]
+            }
+          ]
         },
-        // Pie Chart
-        chartData2: {
-          xData: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子'],
-          sData: [5, 20, 36, 10, 10, 70]
-        },
-        option2: {
+        dayDistAccuOption: {
           title: {
-            text: 'Pie Chart'
+            text: 'Day Distance Accumulation Distribution',
+            x: 'center',
+            align: 'right'
+          },
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+              type: 'cross',
+              crossStyle: {
+                color: '#999'
+              }
+            }
           },
           legend: {
-            data: ['销量']
+            x: 'right',
+            data: ['Holiday', 'Work day', '', 'Natural day']
+          },
+          grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
           },
           xAxis: {
-            data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+            type: 'category',
+            boundaryGap: true,
+            data: [ ],
+            axisLabel: {
+              interval: 0,
+              rotate: 270
+            }
           },
-          yAxis: [{
-            type: 'value'
-          }],
-          series: [{
-            name: '销量',
-            type: 'pie',
-            data: [5, 20, 36, 10, 10, 70]
-          }]
-        },
-        // Bar Chart
-        chartData3: {
-          xData: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子'],
-          sData: [5, 20, 36, 10, 10, 70]
-        },
-        option3: {
-          title: {
-            text: 'Bar Chart'
+          yAxis: {
+            type: 'value',
+            axisLabel: {
+              show: true,
+              interval: 'auto',
+              formatter: '{value} %'
+            },
+            show: true
           },
-          legend: {
-            data: ['销量']
-          },
-          xAxis: {
-            data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
-          },
-          yAxis: [{
-            type: 'value'
-          }],
-          series: [{
-            name: '销量',
-            type: 'bar',
-            data: [5, 20, 36, 10, 10, 70]
-          }]
+          series: [
+            {
+              name: 'Holiday',
+              type: 'bar',
+              barGap: 0,
+              data: [ ]
+            },
+            {
+              name: 'Work day',
+              type: 'bar',
+              data: [ ]
+            },
+            {
+              name: 'Natural day',
+              type: 'bar',
+              data: [ ]
+            }
+          ]
         }
       }
     },
@@ -133,14 +186,17 @@
     },
     methods: {
       refreshData () {
-        let chartData = [this.chartData1, this.chartData2, this.chartData3]
-        let option = [this.option1, this.option2, this.option3]
-        for (let i = 0; i < chartData.length; i++) {
-          for (let j = 0; j < chartData[i].length; j++) {
-            option[i].xAxis.data.push(chartData[i].xData[j])
-            option[i].series[0].data.push(chartData[i].sData[j])
-          }
-        }
+        axios.get('/distance.json').then(response => {
+          console.log('数据加载成功')
+          this.dayDistOption.xAxis.data = response.data.data[0].xAxis
+          this.dayDistOption.series[0].data = response.data.data[0].yAxis
+          this.dayDistOption.series[1].data = response.data.data[1].yAxis
+          this.dayDistOption.series[2].data = response.data.data[2].yAxis
+          this.dayDistAccuOption.xAxis.data = response.data.data[0].xAxisAccu
+          this.dayDistAccuOption.series[0].data = response.data.data[0].yAxisAccu
+          this.dayDistAccuOption.series[1].data = response.data.data[1].yAxisAccu
+          this.dayDistAccuOption.series[2].data = response.data.data[2].yAxisAccu
+        })
       }
     },
     computed: {
