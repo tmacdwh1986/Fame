@@ -13,8 +13,8 @@
       </p>
       <p class="article-date"><span class="icon-eye"></span> {{article.hits}}</p>
       <div class="article-tags">
-        <label v-for="tag in $util.stringToTags(article.tags)" :key="tag" class="chip">
-          {{tag}}
+        <label v-for="tag in $util.stringToTags(article.tags)" :key="tag" class="article-tag">
+          #{{tag}}
         </label>
       </div>
       <div class="article-summary markdown-body" v-html="article.content" v-highlight>
@@ -213,14 +213,26 @@
   }
 </script>
 
+<style>
+  .article-item .markdown-body img {
+    max-width: 100%;
+    margin: .5rem auto;
+    display: block;
+    text-align: center;
+    border-radius: 4px;
+    opacity: .9;
+  }
+</style>
+
 <style scoped>
 
   .article-item {
-    padding-bottom: 30px;
+    padding: 1em 0 2em;
+    border-bottom: 1px solid #ddd;
   }
 
   .article-item:first-child {
-    margin-top: 30px;
+    margin-top: 20px;
   }
 
   .article-head {
@@ -236,8 +248,8 @@
   }
 
   .article-head > a:hover {
-    outline-width: 0;
-    text-decoration: underline;
+    outline: 0;
+    border-bottom: 2px solid #5764c6;
   }
 
   .article-item .article-date {
@@ -248,7 +260,12 @@
   }
 
   .article-item .article-tags {
-    margin-bottom: 10px;
+    font-weight: bold;
+    color: #5764c6;
+  }
+
+  .article-item .article-tags .article-tag {
+    margin: 0 0.2em;
   }
 
   .article-item .article-more {

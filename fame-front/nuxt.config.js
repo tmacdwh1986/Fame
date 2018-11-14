@@ -20,8 +20,9 @@ module.exports = {
       {
         rel: 'stylesheet',
         type: 'text/css',
-        href: 'http://fonts.font.im/css?family=Source+Sans+Pro:400,300,300italic,400italic,600,600italic,700,700italic'
+        href: 'http://fonts.font.im/css?family=Roboto:300,300italic,400,400italic,500,500italic,700,700italic'
       }
+
     ],
     noscript: [
       { innerHTML: 'This website requires JavaScript.' }
@@ -76,7 +77,8 @@ module.exports = {
     vendor: [
       'axios',
       'highlight.js',
-      'underscore'
+      'underscore',
+      'gravatar'
     ],
     extractCSS: true,
     /*
@@ -94,6 +96,7 @@ module.exports = {
     }
   },
   env: {
+    // 环境变量,用于docker
     baseUrl: process.env.BASE_URL || undefined,
     proxyHost: process.env.PROXY_HOST || undefined,
     proxyPort: process.env.PROXY_PORT || undefined

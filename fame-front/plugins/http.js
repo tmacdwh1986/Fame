@@ -4,7 +4,7 @@ import serverConfig from '../server-config'
 
 const Axios = axios.create({
   baseURL: serverConfig.api + 'api/', // 本地做反向代理
-  timeout: 5000,
+  timeout: 50000,
   responseType: 'json',
   withCredentials: true, // 是否允许带cookie这些
   headers: {
