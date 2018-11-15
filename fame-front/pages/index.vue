@@ -3,7 +3,6 @@
     <demo-charts id="dayDistChart" :option="dayDistOption"/>
     <demo-charts id="dayDistAccuChart" :option="dayDistAccuOption"/>
     
-
     <div v-for="article in articles" :key="article.id" class="article-item">
       <h2 class="article-head text-bold">
         <nuxt-link :to="{ path: '/article/'+article.id }">{{article.title}}</nuxt-link>
@@ -35,7 +34,7 @@
 <script type="text/ecmascript-6">
   import DemoCharts from '~/components/DemoCharts.vue'
   import axios from 'axios'
-
+  
   export default {
     watchQuery: ['page'],
     key: (to) => to.fullPath,
@@ -49,9 +48,7 @@
       return store.dispatch('getArticles', query.page)
     },
     data () {
-      // Fake data to validate
       return {
-        // Line Chart
         dayDistOption: {
           title: {
             text: 'Day Distance Distribution',
@@ -69,7 +66,7 @@
           },
           legend: {
             x: 'right',
-            data: ['Holiday', 'Work day', '', 'Natural day']
+            data: [ ]
           },
           grid: {
             left: '3%',
@@ -97,19 +94,9 @@
           },
           series: [
             {
-              name: 'Holiday',
+              name: '',
               type: 'bar',
               barGap: 0,
-              data: [ ]
-            },
-            {
-              name: 'Work day',
-              type: 'bar',
-              data: [ ]
-            },
-            {
-              name: 'Natural day',
-              type: 'bar',
               data: [ ]
             }
           ]
@@ -131,7 +118,7 @@
           },
           legend: {
             x: 'right',
-            data: ['Holiday', 'Work day', '', 'Natural day']
+            data: [ ]
           },
           grid: {
             left: '3%',
@@ -159,19 +146,9 @@
           },
           series: [
             {
-              name: 'Holiday',
+              name: '',
               type: 'bar',
               barGap: 0,
-              data: [ ]
-            },
-            {
-              name: 'Work day',
-              type: 'bar',
-              data: [ ]
-            },
-            {
-              name: 'Natural day',
-              type: 'bar',
               data: [ ]
             }
           ]
@@ -186,16 +163,20 @@
     },
     methods: {
       refreshData () {
-        axios.get('/distance.json').then(response => {
-          console.log('数据加载成功')
-          this.dayDistOption.xAxis.data = response.data.data[0].xAxis
-          this.dayDistOption.series[0].data = response.data.data[0].yAxis
-          this.dayDistOption.series[1].data = response.data.data[1].yAxis
-          this.dayDistOption.series[2].data = response.data.data[2].yAxis
-          this.dayDistAccuOption.xAxis.data = response.data.data[0].xAxisAccu
-          this.dayDistAccuOption.series[0].data = response.data.data[0].yAxisAccu
-          this.dayDistAccuOption.series[1].data = response.data.data[1].yAxisAccu
-          this.dayDistAccuOption.series[2].data = response.data.data[2].yAxisAccu
+        axios.get('/distance').then(response => {
+          console.log('load distance successed!')
+          console.log(response.data)
+          var reg = /<script[^>]*?>[\s\S]*?<\/script>/i
+          var script = reg.exec(response.data).toString()
+          var len1 = script.indexOf('{')
+          var len2 = script.lastIndexOf(';')
+          var json = JSON.parse(script.substring(len1, len2))
+          console.log('parse json:')
+          console.log(json)
+          this.dayDistOption.xAxis.data = json.state.tag.data[0].xAxis
+          this.dayDistOption.series[0].data = json.state.tag.data[0].yAxis
+          this.dayDistAccuOption.xAxis.data = json.state.tag.data[0].xAxisAccu
+          this.dayDistAccuOption.series[0].data = json.state.tag.data[0].yAxisAccu
         })
       }
     },

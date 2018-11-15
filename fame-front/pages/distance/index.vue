@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p> This is an ideea <\p>
+    <p> This is an ideea </p>
   </div>
 </template>
 <script type="text/ecmascript-6">
