@@ -24,7 +24,6 @@ import com.zbw.fame.dto.Archives;
 import com.zbw.fame.dto.CommentDto;
 import com.zbw.fame.dto.MetaDto;
 import com.zbw.fame.dto.Pagination;
-import com.zbw.fame.dto.VehicleDistance;
 import com.zbw.fame.model.Articles;
 import com.zbw.fame.model.Comments;
 import com.zbw.fame.service.ArticlesService;
@@ -302,84 +301,58 @@ public class HomeController extends BaseController {
 	public RestResponse statDayDistance(HttpServletRequest request, HttpServletResponse response) {
 
 		List<Map<String, Object>> retList = new ArrayList<Map<String, Object>>();
-		// String flag = request.getParameter("flag");
-		// String city = request.getParameter("city");
-		String flag = "1";
+		// String flag = "0";
 		String city = "ShangHai";
 		String[] isWorkArr = new String[] { "1", "2", "0" };
-		List<VehicleDistance> list = new ArrayList<VehicleDistance>();
+		String[] xAxis = new String[] { "0=<distance<1km", "1=<distance<10km", "10=<distance<20km", "20=<distance<30km",
+				"30=<distance<40km", "40=<distance<50km", "50=<distance<60km", "60=<distance<70km", "70=<distance<80km",
+				"80=<distance<90km", "90=<distance<100km", "100=<distance<120km", "120=<distance<150km",
+				"150=<distance<200km", "distance>=200km" };
+		String[] xAxisAccu = new String[] { "0=<distance<1km", "0=<distance<10km", "0=<distance<20km",
+				"0=<distance<30km", "0=<distance<40km", "0=<distance<50km", "0=<distance<60km", "0=<distance<70km",
+				"0=<distance<80km", "0=<distance<90km", "0=<distance<100km", "0=<distance<120km", "0=<distance<150km",
+				"0=<distance<200km", "distance>=200km" };
+		int[] countArr = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		int len = countArr.length;
 		log.info("[DEBUG]distance entry point");
-		// for (int i = 0; i < isWorkArr.length; i++) {
-		Map<String, Object> ret = new HashMap<String, Object>();
-		list = dayDistanceService.statDayDistance("0", city);
+		for (int i = 0; i < isWorkArr.length; i++) {
+			long s = System.currentTimeMillis();
+			log.info("query start:{}", s);
+			Map<String, Integer> mp = dayDistanceService.statDayDistance(isWorkArr[i], city);
+			long e = System.currentTimeMillis();
+			log.info("query end:{},query cost:{}", e, (e - s));
+			int total = mp.get("total");
+			float[] yAxis = new float[len];
+			float[] yAxisAccu = new float[len];
+			for (int j = 0; j < len; j++) {
+				String xValue = xAxis[j];
+				Integer data = mp.get(xValue);
+				if (data != null) {
+					countArr[j] = data;
+				}
+				yAxis[j] = (float) countArr[j] * 100 / total;
 
-		String[] xAxis = new String[] {};
-		String[] xAxisAccu = new String[] {};
-		int[] countArr = new int[] {};
-		if (flag.equals("0")) {
-			xAxis = new String[] { "0=<distance<1km", "1=<distance<10km", "10=<distance<20km", "20=<distance<30km",
-					"30=<distance<40km", "40=<distance<50km", "50=<distance<60km", "60=<distance<70km",
-					"70=<distance<80km", "80=<distance<90km", "90=<distance<100km", "100=<distance<120km",
-					"120=<distance<150km", "150=<distance<200km", "distance>=200km" };
-			countArr = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-		} else if (flag.equals("1")) {
-			list.remove(0);
-			xAxis = new String[] { "1=<distance<10km", "10=<distance<20km", "20=<distance<30km", "30=<distance<40km",
-					"40=<distance<50km", "50=<distance<60km", "60=<distance<70km", "70=<distance<80km",
-					"80=<distance<90km", "90=<distance<100km", "100=<distance<120km", "120=<distance<150km",
-					"150=<distance<200km", "distance>=200km" };
-			countArr = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-		}
-		xAxisAccu = new String[xAxis.length];
-
-		int total = 0;
-		for (int j = 0; j < xAxis.length; j++) {
-			String xValue = xAxis[j];
-			for (int k = 0; k < list.size(); k++) {
-				VehicleDistance data = list.get(k);
-				String distanceRange = data.getDistance_range().substring(3, data.getDistance_range().length());
-				if (xValue.equals(distanceRange)) {
-					int counts = data.getCounts();
-					countArr[j] = counts;
-					total = total + counts;
-					break;
+				if (j == 0 || j == len - 1) {
+					yAxisAccu[j] = (float) countArr[j] * 100 / total;
+				} else {
+					yAxisAccu[j] = (float) (countArr[j] + countArr[j - 1]) * 100 / total;
+					countArr[j] = countArr[j] + countArr[j - 1];
 				}
 			}
-			if (xValue.indexOf("=<") != -1) {
-				if (flag.equals("0")) {
-					xAxisAccu[j] = "0=<" + xValue.substring(xValue.indexOf("=<") + 2, xValue.length());
-				} else if (flag.equals("1")) {
-					xAxisAccu[j] = "1=<" + xValue.substring(xValue.indexOf("=<") + 2, xValue.length());
-				}
-			} else {
-				xAxisAccu[j] = xValue;
-			}
+			Map<String, Object> ret = new HashMap<String, Object>();
+
+			ret.put("xAxis", xAxis);
+			ret.put("yAxis", yAxis);
+			ret.put("xAxisAccu", xAxisAccu);
+			ret.put("yAxisAccu", yAxisAccu);
+
+			log.info("xAxis:{}", Arrays.toString(xAxis));
+			log.info("yAxis:{}", Arrays.toString(yAxis));
+			log.info("xAxisAccu:{}", Arrays.toString(xAxisAccu));
+			log.info("yAxisAccu:{}", Arrays.toString(yAxisAccu));
+			log.info("[DEBUG]distance return value: {}", ret);
+			retList.add(ret);
 		}
-
-		ret.put("xAxis", xAxis);
-		log.info("xAxis", Arrays.toString(xAxis));
-		ret.put("xAxisAccu", xAxisAccu);
-		log.info("xAxisAccu", Arrays.toString(xAxisAccu));
-
-		float[] yAxis = new float[countArr.length];
-		float[] yAxisAccu = new float[countArr.length];
-		for (int k = 0; k < countArr.length; k++) {
-			yAxis[k] = (float) countArr[k] * 100 / total;
-			if (k == 0 || k == countArr.length - 1) {
-				yAxisAccu[k] = (float) countArr[k] * 100 / total;
-			} else {
-				yAxisAccu[k] = (float) (countArr[k] + countArr[k - 1]) * 100 / total;
-				countArr[k] = countArr[k] + countArr[k - 1];
-			}
-		}
-		ret.put("yAxis", yAxis);
-		log.info("yAxis", Arrays.toString(yAxis));
-		ret.put("yAxisAccu", yAxisAccu);
-		log.info("yAxisAccu", Arrays.toString(yAxisAccu));
-		log.info("[DEBUG]distance return value: {}", ret);
-
-		retList.add(ret);
-		// }
 
 		return RestResponse.ok(retList);
 	}
