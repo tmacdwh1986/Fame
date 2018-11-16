@@ -25,7 +25,7 @@ public interface DayDistanceRepository extends JpaRepository<VehicleCity, String
 			+ " '11/90=<distance<100km', '12/100=<distance<120km', '13/120=<distance<150km',"
 			+ " '14/150=<distance<200km', '15/distance>=200km') as distance_range, count(vin) as counts"
 			+ " FROM (SELECT a.vin, a.start_mileage,a.end_mileage, a.dayDistance ,a.day FROM stat_day_distance a"
-			+ " where a.day in(select day from holiday where year = 2018)) r GROUP BY distance_range", nativeQuery = true)
+			+ " join holiday h on a.day = h.day and h.year = 2018) r GROUP BY distance_range", nativeQuery = true)
 	List<Object[]> statDayDistanceAllInHoliday();
 
 	@Query(value = "SELECT elt(INTERVAL(dayDistance,0, 1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100,120,150,200), "
@@ -34,7 +34,7 @@ public interface DayDistanceRepository extends JpaRepository<VehicleCity, String
 			+ " '11/90=<distance<100km', '12/100=<distance<120km', '13/120=<distance<150km',"
 			+ " '14/150=<distance<200km', '15/distance>=200km') as distance_range, count(vin) as counts"
 			+ " FROM (SELECT a.vin, a.start_mileage,a.end_mileage, a.dayDistance ,a.day FROM stat_day_distance a"
-			+ " where a.day not in(select day from holiday where year = 2018)) r GROUP BY distance_range", nativeQuery = true)
+			+ " join holiday h on a.day != h.day and h.year = 2018) r GROUP BY distance_range", nativeQuery = true)
 	List<Object[]> statDayDistanceAllNotInHoliday();
 
 	@Query(value = "SELECT elt(INTERVAL(dayDistance,0, 1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100,120,150,200), "
@@ -53,7 +53,7 @@ public interface DayDistanceRepository extends JpaRepository<VehicleCity, String
 			+ " '14/150=<distance<200km', '15/distance>=200km') as distance_range, count(vin) as counts"
 			+ " FROM (SELECT a.vin, a.start_mileage,a.end_mileage, a.dayDistance ,a.day FROM stat_day_distance a"
 			+ " join vehicle_city vc on a.vin = vc.vin and vc.city = :city "
-			+ "where a.day in(select day from holiday where year = 2018)) r GROUP BY distance_range", nativeQuery = true)
+			+ " join holiday h on a.day = h.day and h.year = 2018) r GROUP BY distance_range", nativeQuery = true)
 	List<Object[]> statDayDistanceByCityInHoliday(@Param("city") String city);
 
 	@Query(value = "SELECT elt(INTERVAL(dayDistance,0, 1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100,120,150,200), "
@@ -63,7 +63,7 @@ public interface DayDistanceRepository extends JpaRepository<VehicleCity, String
 			+ " '14/150=<distance<200km', '15/distance>=200km') as distance_range, count(vin) as counts"
 			+ " FROM (SELECT a.vin, a.start_mileage,a.end_mileage, a.dayDistance ,a.day FROM stat_day_distance a"
 			+ " join vehicle_city vc on a.vin = vc.vin and vc.city = :city "
-			+ " where a.day not in(select day from holiday where year = 2018)) r GROUP BY distance_range", nativeQuery = true)
+			+ " join holiday h on a.day != h.day and h.year = 2018) r GROUP BY distance_range", nativeQuery = true)
 	List<Object[]> statDayDistanceByCityNotInHoliday(@Param("city") String city);
 
 	@Query(value = "SELECT elt(INTERVAL(averageDistance,0, 1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100,120,150,200), "
@@ -132,5 +132,11 @@ public interface DayDistanceRepository extends JpaRepository<VehicleCity, String
 			+ " join vehicle_city vc on a.vin = vc.vin and vc.city = :city"
 			+ " ) r GROUP BY distance_range", nativeQuery = true)
 	List<Object[]> statAvgDayDistanceByCityNotInHoliday(@Param("city") String city);
+
+	// @Query(value = "")
+	// List<Object[]> statDayDurationRange();
+	//
+	// @Query(value = "")
+	// List<Object[]> getDayAvgDuration();
 
 }

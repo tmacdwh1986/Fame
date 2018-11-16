@@ -1,7 +1,9 @@
 package com.zbw.fame.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 // import com.zbw.fame.dataobject.TripDistance;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +23,8 @@ public class DayDistanceServiceImpl implements DayDistanceService {
 	// private TripDistance tripDistanceRepository;
 
 	@Override
-	public List<VehicleDistance> statDayDistance(String holidayFlag, String city) {
-		List<VehicleDistance> ret = new ArrayList<VehicleDistance>();
+	public Map<String, Integer> statDayDistance(String holidayFlag, String city) {
+
 		List<Object[]> list = new ArrayList<Object[]>();
 		if (holidayFlag.equals("1")) {
 			if (city.equals("All")) {
@@ -44,12 +46,16 @@ public class DayDistanceServiceImpl implements DayDistanceService {
 				list = dayDistanceRepository.statDayDistanceByCity(city);
 			}
 		}
+		int total = 0;
+		Map<String, Integer> ret = new HashMap<String, Integer>();
 		for (Object[] obj : list) {
-			VehicleDistance e = new VehicleDistance();
-			e.setDistance_range(obj[0].toString());
-			e.setCounts(Integer.valueOf(obj[1].toString()));
-			ret.add(e);
+			String key = obj[0].toString();
+			key = key.substring(3, key.length());
+			Integer value = Integer.valueOf(obj[1].toString());
+			ret.put(key, value);
+			total = total + value;
 		}
+		ret.put("total", total);
 		return ret;
 	}
 
@@ -87,6 +93,6 @@ public class DayDistanceServiceImpl implements DayDistanceService {
 
 	// @Override
 	// public List<VehicleDistance> statTripDistance(String holidayFlag) {
-	//	return null;
-	//}
+	// return null;
+	// }
 }
