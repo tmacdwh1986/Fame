@@ -1,17 +1,13 @@
 package com.zbw.fame.service;
 
-import java.util.List;
 import java.util.Map;
-
-import com.zbw.fame.dto.VehicleDistance;
 
 public interface DayDistanceService {
 	public Map<String, Integer> statDayDistance(String holidayFlag, String city);
 
-	List<VehicleDistance> statVinAvgDayDistance(String holidayFlag, String city);
+	public int statVinAvgDayDistance(String holidayFlag, String city);
 
-	// public List<VehicleDistance> statVinAvgDayDistance(String holidayFlag,
-	// String city);
+	public Map<String, Integer> statDayDurationRange(String holidayFlag, String city);
 
-	// public List<VehicleDistance> statTripDistance(String holidayFlag);
+	public int getDayAvgDuration(String holidayFlag, String city);
 }

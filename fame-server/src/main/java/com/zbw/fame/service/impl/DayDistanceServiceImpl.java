@@ -9,7 +9,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.zbw.fame.dto.VehicleDistance;
 import com.zbw.fame.repository.DayDistanceRepository;
 import com.zbw.fame.service.DayDistanceService;
 
@@ -60,39 +59,97 @@ public class DayDistanceServiceImpl implements DayDistanceService {
 	}
 
 	@Override
-	public List<VehicleDistance> statVinAvgDayDistance(String holidayFlag, String city) {
-		List<VehicleDistance> ret = new ArrayList<VehicleDistance>();
-		List<Object[]> list = new ArrayList<Object[]>();
+	public int statVinAvgDayDistance(String holidayFlag, String city) {
+		Object obj = null;
 		if (holidayFlag.equals("1")) {
 			if (city.equals("All")) {
-				list = dayDistanceRepository.statAvgDayDistanceAllInHoliday();
+				obj = dayDistanceRepository.statAvgDayDistanceAllInHoliday();
 			} else {
-				list = dayDistanceRepository.statAvgDayDistanceByCityInHoliday(city);
+				obj = dayDistanceRepository.statAvgDayDistanceByCityInHoliday(city);
 			}
 		} else if (holidayFlag.equals("2")) {
 			if (city.equals("All")) {
-				list = dayDistanceRepository.statAvgDayDistanceAllNotInHoliday();
+				obj = dayDistanceRepository.statAvgDayDistanceAllNotInHoliday();
 			} else {
-				list = dayDistanceRepository.statAvgDayDistanceByCityNotInHoliday(city);
+				obj = dayDistanceRepository.statAvgDayDistanceByCityNotInHoliday(city);
 			}
 		} else {
 			if (city.equals("All")) {
-				list = dayDistanceRepository.statAvgDayDistanceAll();
+				obj = dayDistanceRepository.statAvgDayDistanceAll();
 			} else {
-				list = dayDistanceRepository.statAvgDayDistanceByCity(city);
+				obj = dayDistanceRepository.statAvgDayDistanceByCity(city);
 			}
 		}
-		for (Object[] obj : list) {
-			VehicleDistance e = new VehicleDistance();
-			e.setDistance_range(obj[0].toString());
-			e.setCounts(Integer.valueOf(obj[1].toString()));
-			ret.add(e);
+		if (obj != null) {
+			return Integer.parseInt(obj.toString());
+		} else {
+			return -1;
 		}
+	}
+
+	@Override
+	public Map<String, Integer> statDayDurationRange(String holidayFlag, String city) {
+		List<Object[]> list = new ArrayList<Object[]>();
+		if (holidayFlag.equals("1")) {
+			if (city.equals("All")) {
+				list = dayDistanceRepository.statDayDurationRangeAllInHoliday();
+			} else {
+				list = dayDistanceRepository.statDayDurationRangeByCityInHoliday(city);
+			}
+		} else if (holidayFlag.equals("2")) {
+			if (city.equals("All")) {
+				list = dayDistanceRepository.statDayDurationRangeAllNotInHoliday();
+			} else {
+				list = dayDistanceRepository.statDayDurationRangeByCityNotInHoliday(city);
+			}
+		} else {
+			if (city.equals("All")) {
+				list = dayDistanceRepository.statDayDurationRangeAll();
+			} else {
+				list = dayDistanceRepository.statDayDurationRangeByCity(city);
+			}
+		}
+		int total = 0;
+		Map<String, Integer> ret = new HashMap<String, Integer>();
+		for (Object[] obj : list) {
+			String key = obj[0].toString();
+			key = key.substring(3, key.length());
+			Integer value = Integer.valueOf(obj[1].toString());
+			ret.put(key, value);
+			total = total + value;
+		}
+		ret.put("total", total);
 		return ret;
 	}
 
-	// @Override
-	// public List<VehicleDistance> statTripDistance(String holidayFlag) {
-	// return null;
-	// }
+	@Override
+	public int getDayAvgDuration(String holidayFlag, String city) {
+		Object obj = null;
+		if (holidayFlag.equals("1")) {
+			if (city.equals("All")) {
+				obj = dayDistanceRepository.statAvgDayDurationAllInHoliday();
+			} else {
+				obj = dayDistanceRepository.statAvgDayDurationByCityInHoliday(city);
+			}
+
+		} else if (holidayFlag.equals("2")) {
+			if (city.equals("All")) {
+				obj = dayDistanceRepository.statAvgDayDurationAllNotInHoliday();
+			} else {
+				obj = dayDistanceRepository.statAvgDayDurationByCityNotInHoliday(city);
+			}
+		} else {
+			if (city.equals("All")) {
+				obj = dayDistanceRepository.statAvgDayDurationAll();
+			} else {
+				obj = dayDistanceRepository.statAvgDayDurationByCity(city);
+			}
+		}
+		if (obj != null) {
+			return Integer.parseInt(obj.toString());
+		} else {
+			return -1;
+		}
+	}
+
 }
