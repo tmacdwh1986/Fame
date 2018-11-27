@@ -163,20 +163,13 @@
     },
     methods: {
       refreshData () {
-        axios.get('/distance').then(response => {
+        axios.get('/distance.json').then(response => {
           console.log('load distance successed!')
           console.log(response.data)
-          var reg = /<script[^>]*?>[\s\S]*?<\/script>/i
-          var script = reg.exec(response.data).toString()
-          var len1 = script.indexOf('{')
-          var len2 = script.lastIndexOf(';')
-          var json = JSON.parse(script.substring(len1, len2))
-          console.log('parse json:')
-          console.log(json)
-          this.dayDistOption.xAxis.data = json.state.tag.data[0].xAxis
-          this.dayDistOption.series[0].data = json.state.tag.data[0].yAxis
-          this.dayDistAccuOption.xAxis.data = json.state.tag.data[0].xAxisAccu
-          this.dayDistAccuOption.series[0].data = json.state.tag.data[0].yAxisAccu
+          this.dayDistOption.xAxis.data = response.data[0].xAxis
+          this.dayDistOption.series[0].data = response.data[0].yAxis
+          this.dayDistAccuOption.xAxis.data = response.data[1].xAxis
+          this.dayDistAccuOption.series[0].data = response.data[1].yAxis
         })
       }
     },

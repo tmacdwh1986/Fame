@@ -33,7 +33,7 @@
       return {
         links: [
           { path: '/', name: '首页' },
-          { path: '/tag', name: 'tag' },
+          { path: '/distance', name: '距离' },
           { path: '/test', name: '测试' },
           { path: '/about', name: '关于' }
         ],

@@ -13,10 +13,10 @@
     fetch ({ store }) {
       return store.dispatch('getTrip')
     },
-    computed:{
-       distance: function() {
-        return this.$store.state.trip.data;
-       }
+    computed: {
+      distance: function () {
+        return this.$store.state.trip.data
+      }
     }
   }
 </script>
