@@ -19,15 +19,18 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/peakhour")
+@RequestMapping("/api")
 public class PeakHourController {
 	@Autowired
 	private PeakHourService peakHourService;
 
-	@GetMapping("{city}")
-	public RestResponse statPeakHour(@PathVariable(value = "city") String city) {
+	//@GetMapping("{city}")
+	//public RestResponse statPeakHour(@PathVariable(value = "city") String city) {
+	@GetMapping("/period")
+	public RestResponse statPeakHour() {
 		List<Map<String, Object>> retList = new ArrayList<Map<String, Object>>();
 		String[] holiday_flag = new String[] { "1", "2", "0" };
+		String city = "ShangHai";
 		for (int i = 0; i < holiday_flag.length; i++) {
 			Map<String, Object> ret = new HashMap<String, Object>();
 			Map<String, Integer> mp = peakHourService.statPeakHour(holiday_flag[i], city);

@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/soc/")
+@RequestMapping("/api")
 public class SOCController {
 	@Autowired
 	private SOCService socService;
@@ -58,10 +58,13 @@ public class SOCController {
 		return RestResponse.ok(ret);
 	}
 
-	@GetMapping("DrivingSOC/{city}")
-	public RestResponse statDrivingSOCDistr(@PathVariable(value = "city") String city) {
+	//@GetMapping("DrivingSOC/{city}")
+	//public RestResponse statDrivingSOCDistr(@PathVariable(value = "city") String city) {
+	@GetMapping("soc")
+	public RestResponse statDrivingSOCDistr() {
 		List<Map<String, Object>> retList = new ArrayList<Map<String, Object>>();
 		String[] holiday_flag = new String[] { "1", "2", "0" };
+		String city = "ShangHai";
 		for (int i = 0; i < holiday_flag.length; i++) {
 			Map<String, Object> ret = new HashMap<String, Object>();
 			Map<String, Integer> mp = socService.statDriveSOC(holiday_flag[i], city);

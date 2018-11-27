@@ -19,14 +19,15 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/trip")
+@RequestMapping("/api")
 public class TripDistanceController {
 	@Autowired
 	private TripDistanceService tripDistanceService;
 
-	@GetMapping("distance/{city}")
-	public RestResponse statTripDistance(@PathVariable(value = "city") String city) {
-
+	//@GetMapping("/trip/distance/{city}")
+	// public RestResponse statTripDistance(@PathVariable(value = "city") String city) {
+	@GetMapping("/trip")
+	public RestResponse statTripDistance() {
 		List<Map<String, Object>> retList = new ArrayList<Map<String, Object>>();
 		String[] xAxis = new String[] { "0=<distance<1km", "1=<distance<10km", "10=<distance<20km", "20=<distance<30km",
 				"30=<distance<40km", "40=<distance<50km", "50=<distance<60km", "60=<distance<70km", "70=<distance<80km",
@@ -38,6 +39,7 @@ public class TripDistanceController {
 				"0=<distance<200km", "distance>=200km" };
 		int[] countArr = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 		int len = countArr.length;
+		String city = "ShangHai";
 		String[] isWorkArr = new String[] { "1", "2", "0" };
 		for (int i = 0; i < isWorkArr.length; i++) {
 			long s = System.currentTimeMillis();
