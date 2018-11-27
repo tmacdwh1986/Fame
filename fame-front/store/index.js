@@ -27,12 +27,24 @@ export const actions = {
   },
   async getDistance ({ commit }) {
     let { data } = await api.getDistance()
-    commit('tag/SET_DATA', data)
+    commit('distance/SET_DATA', data)
   },
   // 归档
   async getArchive ({ commit }) {
     let { data } = await api.getArchives()
     commit('archive/SET_DATA', data)
+  },
+  async getTrip ({ commit }) {
+    let { data } = await api.getTrip()
+    commit('trip/SET_DATA', data)
+  },
+  async getPeriod ({ commit }) {
+    let { data } = await api.getPeriod()
+    commit('period/SET_DATA', data)
+  },
+  async getSoc ({ commit }) {
+    let { data } = await api.getSoc()
+    commit('period/SET_DATA', data)
   },
   // 自定义页面
   async getPage ({ commit }, title) {

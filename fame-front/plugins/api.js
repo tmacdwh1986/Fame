@@ -26,6 +26,15 @@ const api = {
   getArchives () {
     return get('/archive')
   },
+  getTrip () {
+    return get('/trip')
+  },
+  getPeriod(){
+    return get('/period')
+  },
+  getSoc() {
+    return get('/soc')
+  },
   getComment (articleId, page, limit) {
     let params = {
       articleId: articleId,
