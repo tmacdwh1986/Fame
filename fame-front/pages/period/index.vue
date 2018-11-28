@@ -13,10 +13,10 @@
     fetch ({ store }) {
       return store.dispatch('getPeriod')
     },
-    computed:{
-       distance: function() {
-        return this.$store.state.period.data;
-       }
+    computed: {
+      distance: function () {
+        return this.$store.state.period.data
+      }
     }
   }
 </script>

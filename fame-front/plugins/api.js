@@ -29,10 +29,10 @@ const api = {
   getTrip () {
     return get('/trip')
   },
-  getPeriod(){
+  getPeriod () {
     return get('/period')
   },
-  getSoc() {
+  getSoc () {
     return get('/soc')
   },
   getComment (articleId, page, limit) {
