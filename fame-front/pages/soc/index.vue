@@ -1,5 +1,6 @@
 <template>
   <div>
+    <nuxt-link class="Home" :to="{ path: '/status' }">Status Home</nuxt-link>
     <p> This is an soc begin </p>
     <p> {{ $store.state.soc.data }} </p>
     <p> This is an soc end </p>

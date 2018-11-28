@@ -1,5 +1,6 @@
 <template>
   <div>
+    <nuxt-link class="Home" :to="{ path: '/driving' }">Driving Home</nuxt-link>
     <p> This is an ideea begin </p>
     <p> {{ $store.state.trip.data }} </p>
     <p> This is an ideea end </p>
