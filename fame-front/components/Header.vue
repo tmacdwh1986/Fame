@@ -32,10 +32,11 @@
     data () {
       return {
         links: [
-          { path: '/', name: '首页' },
-          { path: '/distance', name: '距离' },
-          { path: '/charging', name: '测试' },
-          { path: '/about', name: '关于' }
+          { path: '/', name: 'Home' },
+          { path: '/driving', name: 'Driving' },
+          { path: '/charging', name: 'Charging' },
+          { path: '/status', name: 'Status'},
+          { path: '/about', name: 'About' }
         ],
         menuOpen: false
       }

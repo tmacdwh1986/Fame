@@ -44,7 +44,7 @@ export const actions = {
   },
   async getSoc ({ commit }) {
     let { data } = await api.getSoc()
-    commit('period/SET_DATA', data)
+    commit('soc/SET_DATA', data)
   },
   async getChrgDistance ({ commit }) {
     let { data } = await api.getChrgDistance()
