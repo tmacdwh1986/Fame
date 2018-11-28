@@ -3,7 +3,6 @@
     <nuxt-link class="Home" :to="{ path: '/driving' }">Driving Home</nuxt-link>
     <demo-charts id="chart1" :option="chart1Option"/>
     <demo-charts id="chart2" :option="chart2Option"/>
-    <demo-charts id="chart3" :option="chart3Option"/>
   </div>
 </template>
 
