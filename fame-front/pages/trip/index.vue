@@ -3,9 +3,6 @@
     <nuxt-link class="Home" :to="{ path: '/driving' }">Driving Home</nuxt-link>
     <demo-charts id="chart1" :option="tripDistOption"/>
     <demo-charts id="chart2" :option="tripDistAccuOption"/>
-    <p> This is an ideea begin </p>
-    <p> {{ $store.state.trip.data }} </p>
-    <p> This is an ideea end </p>
   </div>
 </template>
 <script type="text/ecmascript-6">
