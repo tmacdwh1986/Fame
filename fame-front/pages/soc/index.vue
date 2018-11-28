@@ -13,10 +13,10 @@
     fetch ({ store }) {
       return store.dispatch('getSoc')
     },
-    computed:{
-       distance: function() {
-        return this.$store.state.soc.data;
-       }
+    computed: {
+      distance: function () {
+        return this.$store.state.soc.data
+      }
     }
   }
 </script>

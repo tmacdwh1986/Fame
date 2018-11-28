@@ -9,10 +9,9 @@ const mutations = {
 }
 
 const actions = {
-  SET_DATA: ({commit}, data) =>{
+  SET_DATA: ({ commit }, data) => {
     commit('SET_DATA', data)
   }
 }
 
-
-export default {namespaced: true, state, mutations, actions }
+export default { namespaced: true, state, mutations, actions }
