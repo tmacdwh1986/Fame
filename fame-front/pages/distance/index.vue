@@ -3,16 +3,15 @@
     <demo-charts id="chart1" :option="chart1Option"/>
     <demo-charts id="chart2" :option="chart2Option"/>
     <demo-charts id="chart3" :option="chart3Option"/>
-    <p style="display:none;"> {{ $store.state.distance.data }} </p>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import DemoCharts from '~/components/DemoCharts.vue'
-  
+
   export default {
     head () {
-      return { title: `标签` }
+      return { title: `Distance` }
     },
     fetch ({ store }) {
       return store.dispatch('getDistance')
