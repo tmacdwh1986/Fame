@@ -8,7 +8,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,8 +23,9 @@ public class TripDistanceController {
 	@Autowired
 	private TripDistanceService tripDistanceService;
 
-	//@GetMapping("/trip/distance/{city}")
-	// public RestResponse statTripDistance(@PathVariable(value = "city") String city) {
+	// @GetMapping("/trip/distance/{city}")
+	// public RestResponse statTripDistance(@PathVariable(value = "city") String
+	// city) {
 	@GetMapping("/trip")
 	public RestResponse statTripDistance() {
 		List<Map<String, Object>> retList = new ArrayList<Map<String, Object>>();
@@ -39,7 +39,7 @@ public class TripDistanceController {
 				"0=<distance<200km", "distance>=200km" };
 		int[] countArr = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 		int len = countArr.length;
-		String city = "ShangHai";
+		String city = "All";
 		String[] isWorkArr = new String[] { "1", "2", "0" };
 		for (int i = 0; i < isWorkArr.length; i++) {
 			long s = System.currentTimeMillis();
@@ -83,23 +83,26 @@ public class TripDistanceController {
 		return RestResponse.ok(retList);
 	}
 
-	@GetMapping("duration/{city}")
-	public RestResponse statTripDurationRange(@PathVariable(value = "city") String city) {
-
+	// @GetMapping("duration/{city}")
+	// public RestResponse statTripDurationRange(@PathVariable(value = "city")
+	// String city) {
+	@GetMapping("duration")
+	public RestResponse statTripDurationRange() {
+		String[] xAxis = new String[] { "T<10Min", "10Min=<T<20Min", "20Min=<T<30Min", "30Min=<T<40Min",
+				"40Min=<T<50Min", "50Min=<T<60Min", "60Min=<T<70Min", "70Min=<T<80Min", "80Min=<T<90Min",
+				"90Min=<T<100Min", "100Min=<T<110Min", "110Min=<T<120Min", "120Min=<T<130Min", "130Min=<T<140Min",
+				"140Min=<T<150Min", "T>=150Min" };
+		String[] xAxisAccu = new String[] { "T<10Min", "T<20Min", "T<30Min", "T<40Min", "T<50Min", "T<60Min", "T<70Min",
+				"T<80Min", "T<90Min", "T<100Min", "T<110Min", "T<120Min", "T<130Min", "T<140Min", "T<150Min",
+				"T>=150Min" };
+		int[] countArr = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		int len = countArr.length;
+		String city = "All";
 		List<Map<String, Object>> retList = new ArrayList<Map<String, Object>>();
 		String[] isWorkArr = new String[] { "1", "2", "0" };
 		for (int i = 0; i < isWorkArr.length; i++) {
 			Map<String, Integer> mp = tripDistanceService.statTripDurationRange(isWorkArr[i], city);
 
-			String[] xAxis = new String[] { "T<10Min", "10Min=<T<20Min", "20Min=<T<30Min", "30Min=<T<40Min",
-					"40Min=<T<50Min", "50Min=<T<60Min", "60Min=<T<70Min", "70Min=<T<80Min", "80Min=<T<90Min",
-					"90Min=<T<100Min", "100Min=<T<110Min", "110Min=<T<120Min", "120Min=<T<130Min", "130Min=<T<140Min",
-					"140Min=<T<150Min", "T>=150Min" };
-			String[] xAxisAccu = new String[] { "T<10Min", "T<20Min", "T<30Min", "T<40Min", "T<50Min", "T<60Min",
-					"T<70Min", "T<80Min", "T<90Min", "T<100Min", "T<110Min", "T<120Min", "T<130Min", "T<140Min",
-					"T<150Min", "T>=150Min" };
-			int[] countArr = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-			int len = countArr.length;
 			int total = mp.get("total");
 			float[] yAxis = new float[len];
 			float[] yAxisAccu = new float[len];
@@ -137,8 +140,12 @@ public class TripDistanceController {
 		return RestResponse.ok(retList);
 	}
 
-	@GetMapping("avgTripDistance/{city}")
-	public RestResponse statAvgTripDistance(@PathVariable(value = "city") String city) {
+	// @GetMapping("avgTripDistance/{city}")
+	// public RestResponse statAvgTripDistance(@PathVariable(value = "city")
+	// String city) {
+	@GetMapping("avgTripDistance")
+	public RestResponse statAvgTripDistance() {
+		String city = "All";
 		Map<String, Object> ret = new HashMap<String, Object>();
 		String[] isWorkArr = new String[] { "1", "2", "0" };
 		String[] xAxis = new String[] { "Holiday", "Work Day", "Natural Day" };
@@ -154,8 +161,12 @@ public class TripDistanceController {
 		return RestResponse.ok(ret);
 	}
 
-	@GetMapping("avgTripDuration/{city}")
-	public RestResponse statAvgTripDuration(@PathVariable(value = "city") String city) {
+	// @GetMapping("avgTripDuration/{city}")
+	// public RestResponse statAvgTripDuration(@PathVariable(value = "city")
+	// String city) {
+	@GetMapping("avgTripDuration")
+	public RestResponse statAvgTripDuration() {
+		String city = "All";
 		Map<String, Object> ret = new HashMap<String, Object>();
 		String[] isWorkArr = new String[] { "1", "2", "0" };
 		String[] xAxis = new String[] { "Holiday", "Work Day", "Natural Day" };

@@ -302,7 +302,7 @@ public class HomeController extends BaseController {
 
 		List<Map<String, Object>> retList = new ArrayList<Map<String, Object>>();
 		// String flag = "0";
-		String city = "ShangHai";
+		String city = "All";
 		String[] isWorkArr = new String[] { "1", "2", "0" };
 		String[] xAxis = new String[] { "0=<distance<1km", "1=<distance<10km", "10=<distance<20km", "20=<distance<30km",
 				"30=<distance<40km", "40=<distance<50km", "50=<distance<60km", "60=<distance<70km", "70=<distance<80km",
