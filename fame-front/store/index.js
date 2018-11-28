@@ -46,6 +46,14 @@ export const actions = {
     let { data } = await api.getSoc()
     commit('period/SET_DATA', data)
   },
+  async getChrgDistance ({ commit }) {
+    let { data } = await api.getChrgDistance()
+    commit('chrgdistance/SET_DATA', data)
+  },
+  async getChrgDuration ({ commit }) {
+    let { data } = await api.getChrgDuration()
+    commit('chrgduration/SET_DATA', data)
+  },
   // 自定义页面
   async getPage ({ commit }, title) {
     let { data } = await api.getPage(title)

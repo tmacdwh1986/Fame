@@ -17,13 +17,15 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/charging/")
+@RequestMapping("/api")
 public class ChargingController {
 	@Autowired
 	private ChargingService chargingService;
 
-	@GetMapping("ChrgDistance/{city}")
-	public RestResponse statChargingDistance(@PathVariable(value = "city") String city) {
+	@GetMapping("/ChrgDistance")
+	// public RestResponse statChargingDistance(@PathVariable(value = "city") String city) {
+	public RestResponse statChargingDistance() {
+		String city = "ShangHai";
 		Map<String, Integer> mp = chargingService.statChrgDistance(city);
 
 		String[] xAxis = new String[] { "distance<50km", "50=<distance<100km", "100=<distance<200km",
@@ -86,8 +88,10 @@ public class ChargingController {
 		return RestResponse.ok(ret);
 	}
 
-	@GetMapping("ChrgDuration/{city}")
-	public RestResponse statChrgDurationDistr(@PathVariable(value = "city") String city) {
+	@GetMapping("/ChrgDuration")
+	// public RestResponse statChrgDurationDistr(@PathVariable(value = "city") String city) {
+	public RestResponse statChrgDurationDistr() {
+		String city = "ShangHai";
 		Map<String, Integer> mp = chargingService.statChrgDuration(city);
 
 		String[] xAxis = new String[] { "T<1", "1=<T<2", "2=<T<3", "3=<T<4", "4=<T<5", "5=<T<6", "6=<T<7", "7=<T<8",

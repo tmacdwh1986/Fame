@@ -35,6 +35,12 @@ const api = {
   getSoc () {
     return get('/soc')
   },
+  getChrgDistance () {
+    return get('/ChrgDistance')
+  },
+  getChrgDuration () {
+    return get('/ChrgDuration')
+  },
   getComment (articleId, page, limit) {
     let params = {
       articleId: articleId,

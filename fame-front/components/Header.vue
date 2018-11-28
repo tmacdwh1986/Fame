@@ -34,7 +34,7 @@
         links: [
           { path: '/', name: '首页' },
           { path: '/distance', name: '距离' },
-          { path: '/test', name: '测试' },
+          { path: '/charging', name: '测试' },
           { path: '/about', name: '关于' }
         ],
         menuOpen: false
