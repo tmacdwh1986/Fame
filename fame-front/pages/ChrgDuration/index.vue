@@ -1,12 +1,11 @@
 <template>
   <div>
     <nuxt-link class="Home" :to="{ path: '/charging' }">Charging Home</nuxt-link>
-    <p> This is an chargingduration begin </p>
-    <p> {{ $store.state.chrgduration.data }} </p>
-    <p> This is an chargingduration end </p>
+    <demo-charts id="chart1" :option="chrgDurationOption"/>
   </div>
 </template>
 <script type="text/ecmascript-6">
+  import DemoCharts from '~/components/DemoCharts.vue'
   export default {
     head () {
       return { title: `chargduration` }
@@ -15,8 +14,77 @@
       return store.dispatch('getChrgDuration')
     },
     computed: {
-      distance: function () {
+      duration: function () {
         return this.$store.state.chrgduration.data
+      }
+    },
+    data () {
+      return {
+        chrgDurationOption: {
+          title: {
+            text: 'Charging Duration',
+            x: 'center',
+            align: 'right'
+          },
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+              type: 'cross',
+              crossStyle: {
+                color: '#999'
+              }
+            }
+          },
+          legend: {
+            x: 'right',
+            data: []
+          },
+          grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+          },
+          xAxis: {
+            type: 'category',
+            boundaryGap: true,
+            data: [ ],
+            axisLabel: {
+              interval: 0,
+              rotate: 270
+            }
+          },
+          yAxis: {
+            type: 'value',
+            axisLabel: {
+              show: true,
+              interval: 'auto',
+              formatter: '{value} %'
+            },
+            show: true
+          },
+          series: [
+            {
+              name: '',
+              type: 'bar',
+              barGap: 0,
+              data: [ ]
+            }
+          ]
+        }
+      }
+    },
+    components: {
+      DemoCharts
+    },
+    mounted () {
+      this.refreshData()
+    },
+    methods: {
+      refreshData () {
+        var json = this.duration
+        this.chrgDurationOption.xAxis.data = json.xAxis
+        this.chrgDurationOption.series[0].data = json.yAxis
       }
     }
   }
