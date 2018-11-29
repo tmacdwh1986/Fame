@@ -1,275 +1,28 @@
 <template>
   <div>
-    <demo-charts id="dayDistChart" :option="dayDistOption"/>
-    <demo-charts id="dayDistAccuChart" :option="dayDistAccuOption"/>
-    
-    <div v-for="article in articles" :key="article.id" class="article-item">
-      <h2 class="article-head text-bold">
-        <nuxt-link :to="{ path: '/article/'+article.id }">{{article.title}}</nuxt-link>
-      </h2>
-      <p class="article-date"><span class="icon-folder"></span> {{article.category | formatCategory}}</p>
-      <p class="article-date text-italic"><span class="icon-calendar"></span> {{article.created | time('yyyy-MM-dd')}}
-      </p>
-      <p class="article-date"><span class="icon-eye"></span> {{article.hits}}</p>
-      <div class="article-tags">
-        <label v-for="tag in $util.stringToTags(article.tags)" :key="tag" class="article-tag">
-          #{{tag}}
-        </label>
-      </div>
-      <div class="article-summary markdown-body" v-html="article.content" v-highlight>
-      </div>
-      <nuxt-link class="article-more text-primary" :to="{ path: '/article/'+article.id }">Read more</nuxt-link>
-    </div>
-    <div class="front-page">
-      <div class="pre text-primary" v-if="currentPage > 1">
-        <nuxt-link :to="{path:'', query: { page: currentPage-1 }}">← Pre</nuxt-link>
-      </div>
-      <div class="next text-primary" v-if="currentPage < totalPage">
-        <nuxt-link :to="{path:'', query: { page: currentPage+1 }}">Next →</nuxt-link>
-      </div>
-    </div>
+   <div class="container">
+    <el-row>
+      <el-col>
+        <search-bar/>
+      </el-col>
+      </el-row>
+   </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-  import DemoCharts from '~/components/DemoCharts.vue'
-  import axios from 'axios'
-  
+  import searchBar from '~/components/SearchBar.vue'
+
   export default {
-    watchQuery: ['page'],
-    key: (to) => to.fullPath,
-    transition (to, from) {
-      return 'move'
-    },
     head () {
-      return { title: `Blog` }
-    },
-    fetch ({ store, query }) {
-      return store.dispatch('getArticles', query.page)
-    },
-    data () {
-      return {
-        dayDistOption: {
-          title: {
-            text: 'Day Distance Distribution',
-            x: 'center',
-            align: 'right'
-          },
-          tooltip: {
-            trigger: 'axis',
-            axisPointer: {
-              type: 'cross',
-              crossStyle: {
-                color: '#999'
-              }
-            }
-          },
-          legend: {
-            x: 'right',
-            data: [ ]
-          },
-          grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
-            containLabel: true
-          },
-          xAxis: {
-            type: 'category',
-            boundaryGap: true,
-            data: [ ],
-            axisLabel: {
-              interval: 0,
-              rotate: 270
-            }
-          },
-          yAxis: {
-            type: 'value',
-            axisLabel: {
-              show: true,
-              interval: 'auto',
-              formatter: '{value} %'
-            },
-            show: true
-          },
-          series: [
-            {
-              name: '',
-              type: 'bar',
-              barGap: 0,
-              data: [ ]
-            }
-          ]
-        },
-        dayDistAccuOption: {
-          title: {
-            text: 'Day Distance Accumulation Distribution',
-            x: 'center',
-            align: 'right'
-          },
-          tooltip: {
-            trigger: 'axis',
-            axisPointer: {
-              type: 'cross',
-              crossStyle: {
-                color: '#999'
-              }
-            }
-          },
-          legend: {
-            x: 'right',
-            data: [ ]
-          },
-          grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
-            containLabel: true
-          },
-          xAxis: {
-            type: 'category',
-            boundaryGap: true,
-            data: [ ],
-            axisLabel: {
-              interval: 0,
-              rotate: 270
-            }
-          },
-          yAxis: {
-            type: 'value',
-            axisLabel: {
-              show: true,
-              interval: 'auto',
-              formatter: '{value} %'
-            },
-            show: true
-          },
-          series: [
-            {
-              name: '',
-              type: 'bar',
-              barGap: 0,
-              data: [ ]
-            }
-          ]
-        }
-      }
+      return { title: `FAME` }
     },
     components: {
-      DemoCharts
-    },
-    mounted () {
-      this.refreshData()
-    },
-    methods: {
-      refreshData () {
-        axios.get('/distance.json').then(response => {
-          console.log('load distance successed!')
-          console.log(response.data)
-          this.dayDistOption.xAxis.data = response.data[0].xAxis
-          this.dayDistOption.series[0].data = response.data[0].yAxis
-          this.dayDistAccuOption.xAxis.data = response.data[1].xAxis
-          this.dayDistAccuOption.series[0].data = response.data[1].yAxis
-        })
-      }
-    },
-    computed: {
-      articles () {
-        return this.$store.state.article.list.data
-      },
-      totalPage () {
-        return this.$store.state.article.list.totalPage
-      },
-      currentPage () {
-        return this.$store.state.article.list.currentPage
-      }
+      searchBar
     }
   }
 </script>
 
-<style>
-  .article-item .markdown-body img {
-    max-width: 100%;
-    margin: .5rem auto;
-    display: block;
-    text-align: center;
-    border-radius: 4px;
-    opacity: .9;
-  }
-</style>
-
-<style scoped>
-
-  .article-item {
-    padding: 1em 0 2em;
-    border-bottom: 1px solid #ddd;
-  }
-
-  .article-item:first-child {
-    margin-top: 20px;
-  }
-
-  .article-head {
-    line-height: 1.2;
-    font-size: 1.6rem;
-    margin: 0;
-  }
-
-  .article-head > a {
-    color: #34495e;
-    outline: none;
-    text-decoration: none;
-  }
-
-  .article-head > a:hover {
-    outline: 0;
-    border-bottom: 2px solid #5764c6;
-  }
-
-  .article-item .article-date {
-    display: inline-block;
-    color: #7f8c8d;
-    margin: 5px 5px;
-    font-size: 0.9em;
-  }
-
-  .article-item .article-tags {
-    font-weight: bold;
-    color: #5764c6;
-  }
-
-  .article-item .article-tags .article-tag {
-    margin: 0 0.2em;
-  }
-
-  .article-item .article-more {
-    font-weight: bold;
-    font-size: 16px;
-    text-decoration: none;
-    display: inline-block;
-    transition: all 0.3s;
-  }
-
-  .article-item .article-more:hover {
-    transform: translateX(10px);
-  }
-
-  .front-page {
-    margin: 4em 3em;
-    font-size: 15px;
-  }
-
-  .front-page a {
-    font-weight: bold;
-    color: #5764c6;
-    text-decoration: none;
-  }
-
-  .front-page .pre {
-    float: left;
-  }
-
-  .front-page .next {
-    float: right;
-  }
+<style lang="scss">
+  @import "@/assets/css/index.scss"
 </style>
