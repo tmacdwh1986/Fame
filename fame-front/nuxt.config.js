@@ -36,6 +36,8 @@ module.exports = {
     { src: '~assets/css/normalize.css' },
     { src: '~assets/css/style.css' },
     'highlight.js/styles/tomorrow.css',
+    'element-ui/lib/theme-chalk/reset.css',
+    'element-ui/lib/theme-chalk/index.css',
     { src: '~assets/css/icon.css' }
   ],
   plugins: [
@@ -45,6 +47,7 @@ module.exports = {
     { src: '~/plugins/global.js' },
     { src: '~/plugins/tools.js' },
     { src: '~/plugins/echarts.js'},
+    { src: '~/plugins/element-ui.js'},
   ],
   router: {
     linkActiveClass: 'active',

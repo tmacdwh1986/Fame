@@ -109,7 +109,7 @@
   }
 
   .header-container {
-    max-width: 1200px;
+    max-width: 2200px;
     height: 40px;
     margin: 0 auto;
     padding: 10px 30px;

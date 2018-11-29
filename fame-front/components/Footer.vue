@@ -11,7 +11,7 @@
   .footer {
     padding: 1em 0;
     margin: 0 auto;
-    max-width: 850px;
+    max-width: 1850px;
     border-top: 1px solid #e5e5e5;
     text-align: center;
     font-size: 0.9em;
