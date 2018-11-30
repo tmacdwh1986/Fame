@@ -15,11 +15,6 @@
     fetch ({ store }) {
       return store.dispatch('getTrip')
     },
-    computed: {
-      distance: function () {
-        return this.$store.state.trip.data
-      }
-    },
     data () {
       return {
         tripDistOption: {
@@ -152,11 +147,14 @@
       DemoCharts
     },
     mounted () {
-      this.refreshData()
+      setTimeout (() => {
+        this.refreshData()
+      }, 0)
     },
     methods: {
       refreshData () {
-        var json = this.distance
+        var json = this.$store.state.trip.data
+        console.log(json)
         this.tripDistOption.xAxis.data = json[0].xAxis
         this.tripDistOption.series[0].data = json[0].yAxis
         this.tripDistOption.series[1].data = json[1].yAxis

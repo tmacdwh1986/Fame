@@ -36,35 +36,34 @@
 </template>
 
 <script>
-import _ from 'lodash'
 export default {
-  data(){
+  data () {
     return {
-      search:'',
-      isFocus:false,
-      hotSearch:['New Foucs', 'New Foucs', 'New Foucs'],
-      searchList:['Lincon', 'Lincon', 'Lincon']
+      search: '',
+      isFocus: false,
+      hotSearch: ['New Foucs', 'New Foucs', 'New Foucs'],
+      searchList: ['Lincon', 'Lincon', 'Lincon']
     }
   },
-  computed:{
-    isHotSearch:function(){
-      return this.isFocus&&!this.search
+  computed: {
+    isHotSearch: function () {
+      return this.isFocus && !this.search
     },
-    isSearchList:function(){
-      return this.isFocus&&this.search
+    isSearchList: function () {
+      return this.isFocus && this.search
     }
   },
-  methods:{
-    focus:function(){
-      this.isFocus=true
+  methods: {
+    focus: function () {
+      this.isFocus = true
     },
-    blur:function(){
-      let self=this;
-      setTimeout(function(){
-        self.isFocus=false
-      },200)
+    blur: function () {
+      let self = this
+      setTimeout(function () {
+        self.isFocus = false
+      }, 200)
     },
-    input: function(){
+    input: function () {
       console.log('reserved interface for future interaction')
     }
   }
