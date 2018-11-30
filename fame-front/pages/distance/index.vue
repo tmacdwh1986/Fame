@@ -16,11 +16,6 @@
     fetch ({ store }) {
       return store.dispatch('getDistance')
     },
-    computed: {
-      distance: function () {
-        return this.$store.state.distance.data
-      }
-    },
     data () {
       return {
         chart1Option: {
@@ -153,11 +148,13 @@
       DemoCharts
     },
     mounted () {
-      this.refreshData()
+      setTimeout (() => {
+        this.refreshData()
+      }, 0)
     },
     methods: {
       refreshData () {
-        var json = this.distance
+        var json = this.$store.state.distance.data
         this.chart1Option.xAxis.data = json[0].xAxis
         this.chart1Option.series[0].data = json[0].yAxis
         this.chart1Option.series[1].data = json[1].yAxis
