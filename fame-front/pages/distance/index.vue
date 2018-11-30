@@ -3,7 +3,6 @@
     <nuxt-link class="Home" :to="{ path: '/driving' }">Driving Home</nuxt-link>
     <demo-charts id="chart1" :option="chart1Option"/>
     <demo-charts id="chart2" :option="chart2Option"/>
-    <demo-charts id="chart3" :option="chart3Option"/>
   </div>
 </template>
 
@@ -26,7 +25,7 @@
       return {
         chart1Option: {
           title: {
-            text: 'Chart 1',
+            text: 'Day Distance',
             x: 'center',
             align: 'right'
           },
@@ -41,7 +40,7 @@
           },
           legend: {
             x: 'right',
-            data: [ ]
+            data: ['Holiday', 'Work day', '', 'Natural day']
           },
           grid: {
             left: '3%',
@@ -69,16 +68,26 @@
           },
           series: [
             {
-              name: '',
+              name: 'Holiday',
               type: 'bar',
               barGap: 0,
+              data: [ ]
+            },
+            {
+              name: 'Work day',
+              type: 'bar',
+              data: [ ]
+            },
+            {
+              name: 'Natural day',
+              type: 'bar',
               data: [ ]
             }
           ]
         },
         chart2Option: {
           title: {
-            text: 'Chart 2',
+            text: 'Day Distance Accumulation',
             x: 'center',
             align: 'right'
           },
@@ -93,7 +102,7 @@
           },
           legend: {
             x: 'right',
-            data: [ ]
+            data: ['Holiday', 'Work day', '', 'Natural day']
           },
           grid: {
             left: '3%',
@@ -121,61 +130,19 @@
           },
           series: [
             {
-              name: '',
+              name: 'Holiday',
               type: 'bar',
               barGap: 0,
               data: [ ]
-            }
-          ]
-        },
-        chart3Option: {
-          title: {
-            text: 'Chart 3',
-            x: 'center',
-            align: 'right'
-          },
-          tooltip: {
-            trigger: 'axis',
-            axisPointer: {
-              type: 'cross',
-              crossStyle: {
-                color: '#999'
-              }
-            }
-          },
-          legend: {
-            x: 'right',
-            data: [ ]
-          },
-          grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
-            containLabel: true
-          },
-          xAxis: {
-            type: 'category',
-            boundaryGap: true,
-            data: [ ],
-            axisLabel: {
-              interval: 0,
-              rotate: 270
-            }
-          },
-          yAxis: {
-            type: 'value',
-            axisLabel: {
-              show: true,
-              interval: 'auto',
-              formatter: '{value} %'
             },
-            show: true
-          },
-          series: [
             {
-              name: '',
+              name: 'Work day',
               type: 'bar',
-              barGap: 0,
+              data: [ ]
+            },
+            {
+              name: 'Natural day',
+              type: 'bar',
               data: [ ]
             }
           ]
@@ -193,10 +160,12 @@
         var json = this.distance
         this.chart1Option.xAxis.data = json[0].xAxis
         this.chart1Option.series[0].data = json[0].yAxis
-        this.chart2Option.xAxis.data = json[1].xAxis
-        this.chart2Option.series[0].data = json[1].yAxis
-        this.chart3Option.xAxis.data = json[2].xAxis
-        this.chart3Option.series[0].data = json[2].yAxis
+        this.chart1Option.series[1].data = json[1].yAxis
+        this.chart1Option.series[2].data = json[2].yAxis
+        this.chart2Option.xAxis.data = json[0].xAxisAccu
+        this.chart2Option.series[0].data = json[0].yAxisAccu
+        this.chart2Option.series[1].data = json[0].yAxisAccu
+        this.chart2Option.series[2].data = json[0].yAxisAccu
       }
     }
   }

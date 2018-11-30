@@ -1,14 +1,22 @@
 <template>
-  <div>
+  <el-container class="layout-default">
+  <el-header height="85px">
     <fame-header/>
-    <div class="container">
+  </el-header>
+  <el-main>
+    <div class="m-container">
       <transition name="flow" mode="out-in">
-        <nuxt/>
-      </transition>
+      <nuxt/>
+        </transition>
     </div>
     <fame-scroll-top/>
+  </el-main>
+  <el-footer height="100%">
     <fame-footer/>
-  </div>
+  </el-footer>
+</el-container>
+
+
 </template>
 
 <script>
@@ -26,11 +34,11 @@
 </script>
 
 <style>
-  .container {
+  .m-container {
     padding: 2em 1em;
     margin: 30px auto 0;
     height: 100%;
-    max-width: 980px;
+    max-width: 1980px;
     font-size: 16px;
     position: relative;
     animation: flow;
