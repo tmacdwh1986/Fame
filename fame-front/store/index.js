@@ -54,6 +54,10 @@ export const actions = {
     let { data } = await api.getChrgDuration()
     commit('chrgduration/SET_DATA', data)
   },
+  async getAcc ({ commit }) {
+    let { data } = await api.getAcc()
+    commit('accel/SET_DATA', data)
+  },
   // 自定义页面
   async getPage ({ commit }, title) {
     let { data } = await api.getPage(title)
