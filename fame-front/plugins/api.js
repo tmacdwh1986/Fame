@@ -1,16 +1,6 @@
 import { get, post } from './http'
 
 const api = {
-  getArticles (page, limit) {
-    let params = {
-      page: page,
-      limit: limit || 5
-    }
-    return get('/article', params)
-  },
-  getArticle (id) {
-    return get('/article/' + id)
-  },
   getCategories () {
     return get('/category')
   },
@@ -26,9 +16,6 @@ const api = {
   getArchives () {
     return get('/archive')
   },
-  getTrip () {
-    return get('/trip')
-  },
   getPeriod () {
     return get('/period')
   },
@@ -43,6 +30,30 @@ const api = {
   },
   getAcc () {
     return get('/accel')
+  },
+  getTrip () {
+    return get('/trip')
+  },
+  getTripDuration () {
+    return get('/TripDuration')
+  },
+  getAvgTripDuration () {
+    return get('/avgTripDuration')
+  },
+  getAvgTripDistance () {
+    return get('/avgTripDistance')
+  },
+  getDayDistance () {
+    return get('/DayDistance')
+  },
+  getDayDuration () {
+    return get('/DayDuration')
+  },
+  getAvgDayDuration () {
+    return get('/avgDayDuration')
+  },
+  getAvgDayDistance () {
+    return get('/avgDayDistance')
   },
   getComment (articleId, page, limit) {
     let params = {

@@ -58,6 +58,34 @@ export const actions = {
     let { data } = await api.getAcc()
     commit('accel/SET_DATA', data)
   },
+  async getTripDuration ({ commit }) {
+    let { data } = await api.getTripDuration()
+    commit('tripduration/SET_DATA', data)
+  },
+  async getAvgTripDuration ({ commit }) {
+    let { data } = await api.getAvgTripDuration()
+    commit('avgtirpduration/SET_DATA', data)
+  },
+  async getAvgTripDistance ({ commit }) {
+    let { data } = await api.getAvgTripDistance()
+    commit('avgtirpdistance/SET_DATA', data)
+  },
+  async getDayDistance ({ commit }) {
+    let { data } = await api.getDayDistance()
+    commit('daydistance/SET_DATA', data)
+  },
+  async getDayDuration ({ commit }) {
+    let { data } = await api.getDayDuration()
+    commit('dayduration/SET_DATA', data)
+  },
+  async getAvgDayDuration ({ commit }) {
+    let { data } = await api.getAvgDayDuration()
+    commit('avgdayduration/SET_DATA', data)
+  },
+  async getAvgDayDistance ({ commit }) {
+    let { data } = await api.getAvgDayDistance()
+    commit('avgdaydistance/SET_DATA', data)
+  },
   // 自定义页面
   async getPage ({ commit }, title) {
     let { data } = await api.getPage(title)

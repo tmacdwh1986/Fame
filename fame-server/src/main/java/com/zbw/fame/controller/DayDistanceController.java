@@ -19,12 +19,12 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/day")
+@RequestMapping("/api")
 public class DayDistanceController {
 	@Autowired
 	private DayDistanceService dayDistanceService;
 
-	@GetMapping("distance")
+	@GetMapping("DayDistance")
 	public RestResponse statDayDistance() {
 		String city = "All";
 		List<Map<String, Object>> retList = new ArrayList<Map<String, Object>>();
@@ -81,7 +81,7 @@ public class DayDistanceController {
 		return RestResponse.ok(retList);
 	}
 
-	@GetMapping("duration")
+	@GetMapping("DayDuration")
 	public RestResponse statDayDurationRange() {
 		String city = "All";
 		List<Map<String, Object>> retList = new ArrayList<Map<String, Object>>();

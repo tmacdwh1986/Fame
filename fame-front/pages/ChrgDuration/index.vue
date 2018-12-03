@@ -78,7 +78,9 @@
       DemoCharts
     },
     mounted () {
-      this.refreshData()
+      setTimeout (() => {
+        this.refreshData()
+      }, 0)
     },
     methods: {
       refreshData () {
