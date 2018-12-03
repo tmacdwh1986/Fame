@@ -2,7 +2,7 @@
   <div>
     <nuxt-link class="Home" :to="{ path: '/status' }">Status Home</nuxt-link>
     <p> This is an accel begin </p>
-    <p> {{ $store.state.acc.data }} </p>
+    <p> {{ $store.state.accel.data }} </p>
     <p> This is an accel end </p>
   </div>
 </template>
@@ -16,7 +16,7 @@
     },
     computed: {
       acc: function () {
-        return this.$store.state.acc.data
+        return this.$store.state.accel.data
       }
     }
   }
