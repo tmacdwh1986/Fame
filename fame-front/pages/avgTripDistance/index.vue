@@ -22,7 +22,7 @@
       return {
         avgTripDistanceOption: {
           title: {
-            text: 'Average Day Distance',
+            text: 'Average Trip Distance',
             x: 'center',
             align: 'right'
           },
@@ -59,7 +59,7 @@
             axisLabel: {
               show: true,
               interval: 'auto',
-              formatter: '{value} %'
+              formatter: '{value} km'
             },
             show: true
           },

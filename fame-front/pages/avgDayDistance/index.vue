@@ -59,7 +59,7 @@
             axisLabel: {
               show: true,
               interval: 'auto',
-              formatter: '{value} %'
+              formatter: '{value} km'
             },
             show: true
           },

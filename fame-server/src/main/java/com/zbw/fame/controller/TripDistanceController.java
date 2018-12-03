@@ -86,7 +86,7 @@ public class TripDistanceController {
 	// @GetMapping("duration/{city}")
 	// public RestResponse statTripDurationRange(@PathVariable(value = "city")
 	// String city) {
-	@GetMapping("TirpDuration")
+	@GetMapping("TripDuration")
 	public RestResponse statTripDurationRange() {
 		String[] xAxis = new String[] { "T<10Min", "10Min=<T<20Min", "20Min=<T<30Min", "30Min=<T<40Min",
 				"40Min=<T<50Min", "50Min=<T<60Min", "60Min=<T<70Min", "70Min=<T<80Min", "80Min=<T<90Min",

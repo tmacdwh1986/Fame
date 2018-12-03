@@ -51,7 +51,7 @@
             data: [ ],
             axisLabel: {
               interval: 0,
-              rotate: 270
+              rotate: 0
             }
           },
           yAxis: {

@@ -23,7 +23,7 @@
       return {
         dayDurationOption: {
           title: {
-            text: 'Day Distance',
+            text: 'Day Duration',
             x: 'center',
             align: 'right'
           },
