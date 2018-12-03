@@ -14,7 +14,7 @@
       return store.dispatch('getAcc')
     },
     computed: {
-      accel: function () {
+      acc: function () {
         return this.$store.state.accel.data
       }
     },
@@ -92,7 +92,7 @@
     },
     methods: {
       refreshData () {
-        var json = this.accel
+        var json = this.acc
         this.acceleratorOption.xAxis.data = json[0].xAxis
         this.acceleratorOption.series[0].data = json[0].yAxis
         this.acceleratorOption.series[1].data = json[1].yAxis
