@@ -161,8 +161,8 @@
         this.chart1Option.series[2].data = json[2].yAxis
         this.chart2Option.xAxis.data = json[0].xAxisAccu
         this.chart2Option.series[0].data = json[0].yAxisAccu
-        this.chart2Option.series[1].data = json[0].yAxisAccu
-        this.chart2Option.series[2].data = json[0].yAxisAccu
+        this.chart2Option.series[1].data = json[1].yAxisAccu
+        this.chart2Option.series[2].data = json[2].yAxisAccu
       }
     }
   }
