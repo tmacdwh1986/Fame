@@ -54,6 +54,14 @@ export const actions = {
     let { data } = await api.getChrgDuration()
     commit('chrgduration/SET_DATA', data)
   },
+  async getChrgStartTime ({ commit }) {
+    let { data } = await api.getChrgStartTime()
+    commit('chrgstarttime/SET_DATA', data)
+  },
+  async getChrgEndTime ({ commit }) {
+    let { data } = await api.getChrgEndTime()
+    commit('chrgendtime/SET_DATA', data)
+  },
   async getAcc ({ commit }) {
     let { data } = await api.getAcc()
     commit('accel/SET_DATA', data)

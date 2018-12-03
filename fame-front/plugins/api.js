@@ -28,6 +28,12 @@ const api = {
   getChrgDuration () {
     return get('/ChrgDuration')
   },
+  getChrgStartTime () {
+    return get('/ChrgStartTime')
+  },
+  getChrgEndTime () {
+    return get('/ChrgEndTime')
+  },
   getAcc () {
     return get('/accel')
   },
