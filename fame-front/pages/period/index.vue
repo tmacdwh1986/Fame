@@ -1,5 +1,6 @@
 <template>
   <div>
+    <nuxt-link class="Home" :to="{ path: '/driving' }">Driving Home</nuxt-link>
     <demo-charts id="chart1" :option="peakHourOption"/>
   </div>
 </template>
