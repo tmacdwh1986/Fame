@@ -41,6 +41,9 @@ const api = {
   getChrgDuration () {
     return get('/ChrgDuration')
   },
+  getAcc () {
+    return get('/accel')
+  },
   getComment (articleId, page, limit) {
     let params = {
       articleId: articleId,

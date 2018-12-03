@@ -3,6 +3,9 @@
   <ul>
     <li> <nuxt-link class="Distance" :to="{ path: '/distance' }">Driving Distance</nuxt-link> </li>
     <li> <nuxt-link class="Trip" :to="{ path: '/trip' }">Driving Trip</nuxt-link> </li>
+    <li> <nuxt-link class="Duration" :to="{ path: '/duration' }">Driving Duration</nuxt-link> </li>
+    <li> <nuxt-link class="AvgTripDistance" :to="{ path: '/avgTripDistance' }">Average Trip Duration</nuxt-link> </li>
+    <li> <nuxt-link class="AvgTripDuration" :to="{ path: '/avgTripDuration' }">Average Trip Duration</nuxt-link> </li>s
     <li> <nuxt-link class="Home" :to="{ path: '/' }">HOME</nuxt-link> </li>
   </ul>
 </div>

@@ -24,9 +24,9 @@ public class DayDistanceController {
 	@Autowired
 	private DayDistanceService dayDistanceService;
 
-	@GetMapping("distance/{city}")
-	public RestResponse statDayDistance(@PathVariable(value = "city") String city) {
-
+	@GetMapping("distance")
+	public RestResponse statDayDistance() {
+		String city = "All";
 		List<Map<String, Object>> retList = new ArrayList<Map<String, Object>>();
 		String[] xAxis = new String[] { "0=<distance<1km", "1=<distance<10km", "10=<distance<20km", "20=<distance<30km",
 				"30=<distance<40km", "40=<distance<50km", "50=<distance<60km", "60=<distance<70km", "70=<distance<80km",
@@ -81,9 +81,9 @@ public class DayDistanceController {
 		return RestResponse.ok(retList);
 	}
 
-	@GetMapping("duration/{city}")
-	public RestResponse statDayDurationRange(@PathVariable(value = "city") String city) {
-
+	@GetMapping("duration")
+	public RestResponse statDayDurationRange() {
+		String city = "All";
 		List<Map<String, Object>> retList = new ArrayList<Map<String, Object>>();
 		String[] isWorkArr = new String[] { "1", "2", "0" };
 		for (int i = 0; i < isWorkArr.length; i++) {
@@ -135,10 +135,11 @@ public class DayDistanceController {
 		return RestResponse.ok(retList);
 	}
 
-	@GetMapping("avgDayDistance/{city}")
-	public RestResponse statAvgTripDistance(@PathVariable(value = "city") String city) {
+	@GetMapping("avgDayDistance")
+	public RestResponse statAvgTripDistance() {
 		Map<String, Object> ret = new HashMap<String, Object>();
 		String[] isWorkArr = new String[] { "1", "2", "0" };
+		String city = "All";
 		String[] xAxis = new String[] { "Holiday", "Work Day", "Natural Day" };
 		int[] yAxis = new int[] { 0, 0, 0 };
 		for (int i = 0; i < isWorkArr.length; i++) {
@@ -152,9 +153,10 @@ public class DayDistanceController {
 		return RestResponse.ok(ret);
 	}
 
-	@GetMapping("avgDayDuration/{city}")
-	public RestResponse statAvgTripDuration(@PathVariable(value = "city") String city) {
+	@GetMapping("avgDayDuration")
+	public RestResponse statAvgTripDuration() {
 		Map<String, Object> ret = new HashMap<String, Object>();
+		String city = "All";
 		String[] isWorkArr = new String[] { "1", "2", "0" };
 		String[] xAxis = new String[] { "Holiday", "Work Day", "Natural Day" };
 		int[] yAxis = new int[] { 0, 0, 0 };
