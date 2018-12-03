@@ -15,7 +15,7 @@
       return store.dispatch('getTripDuration')
     },
     computed: {
-      acc: function () {
+      tripduration: function () {
         return this.$store.state.tripduration.data
       }
     }

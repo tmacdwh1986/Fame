@@ -15,7 +15,7 @@
       return store.dispatch('getDayDuration')
     },
     computed: {
-      acc: function () {
+      dayduration: function () {
         return this.$store.state.dayduration.data
       }
     }

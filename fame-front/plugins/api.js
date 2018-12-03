@@ -4,9 +4,6 @@ const api = {
   getCategories () {
     return get('/category')
   },
-  getTags () {
-    return get('/tag')
-  },
   getDistance () {
     return get('/Distance')
   },
@@ -18,9 +15,6 @@ const api = {
   },
   getPeriod () {
     return get('/period')
-  },
-  getSoc () {
-    return get('/soc')
   },
   getChrgDistance () {
     return get('/ChrgDistance')
@@ -60,6 +54,18 @@ const api = {
   },
   getAvgDayDistance () {
     return get('/avgDayDistance')
+  },
+  getSoc () {
+    return get('/soc')
+  },
+  getChrgStartSOC () {
+    return get('/ChrgStartSOC')
+  },
+  getChrgEndSOC () {
+    return get('/ChrgEndSOC')
+  },
+  getChrgDeltaSOC () {
+    return get('/ChrgDeltaSOC')
   },
   getComment (articleId, page, limit) {
     let params = {

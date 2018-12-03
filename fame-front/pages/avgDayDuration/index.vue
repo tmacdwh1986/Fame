@@ -15,7 +15,7 @@
       return store.dispatch('getAvgDayDuration')
     },
     computed: {
-      acc: function () {
+      avgdayduration: function () {
         return this.$store.state.avgdayduration.data
       }
     }

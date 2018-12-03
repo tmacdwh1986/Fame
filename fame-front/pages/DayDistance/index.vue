@@ -15,7 +15,7 @@
       return store.dispatch('getDayDistance')
     },
     computed: {
-      acc: function () {
+      daydistance: function () {
         return this.$store.state.daydistance.data
       }
     }

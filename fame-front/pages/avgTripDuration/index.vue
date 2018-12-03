@@ -15,7 +15,7 @@
       return store.dispatch('getAvgTripDuration')
     },
     computed: {
-      acc: function () {
+      avgtirpduration: function () {
         return this.$store.state.avgtirpduration.data
       }
     }

@@ -15,7 +15,7 @@
       return store.dispatch('getChrgStartTime')
     },
     computed: {
-      acc: function () {
+      chrgstarttime: function () {
         return this.$store.state.chrgstarttime.data
       }
     }
