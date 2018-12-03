@@ -1,29 +1,10 @@
 import api from '~/plugins/api'
 
 export const actions = {
-  // 文章详情
-  async getArticle ({ commit }, id) {
-    let { data } = ''
-    commit('article/SET_DETAIL', data)
-  },
-  // 文章列表
-  async getArticles ({ commit }, page) {
-    let list = {
-      data: ['a'],
-      totalPage: 1,
-      currentPage: 1
-    }
-    commit('article/SET_LIST', list)
-  },
   // 分类列表
   async getCategories ({ commit }) {
     let { data } = await api.getCategories()
     commit('category/SET_DATA', data)
-  },
-  // 标签
-  async getTags ({ commit }) {
-    let { data } = await api.getTags()
-    commit('tag/SET_DATA', data)
   },
   async getDistance ({ commit }) {
     let { data } = await api.getDistance()
@@ -41,10 +22,6 @@ export const actions = {
   async getPeriod ({ commit }) {
     let { data } = await api.getPeriod()
     commit('period/SET_DATA', data)
-  },
-  async getSoc ({ commit }) {
-    let { data } = await api.getSoc()
-    commit('soc/SET_DATA', data)
   },
   async getChrgDistance ({ commit }) {
     let { data } = await api.getChrgDistance()
@@ -93,6 +70,22 @@ export const actions = {
   async getAvgDayDistance ({ commit }) {
     let { data } = await api.getAvgDayDistance()
     commit('avgdaydistance/SET_DATA', data)
+  },
+  async getSoc ({ commit }) {
+    let { data } = await api.getSoc()
+    commit('soc/SET_DATA', data)
+  },
+  async getChrgStartSOC ({ commit }) {
+    let { data } = await api.getChrgStartSOC()
+    commit('chrgstartsoc/SET_DATA', data)
+  },
+  async getChrgEndSOC ({ commit }) {
+    let { data } = await api.getChrgEndSOC()
+    commit('chrgendsoc/SET_DATA', data)
+  },
+  async getChrgDeltaSOC ({ commit }) {
+    let { data } = await api.getChrgDeltaSOC()
+    commit('chrgdeltasoc/SET_DATA', data)
   },
   // 自定义页面
   async getPage ({ commit }, title) {
