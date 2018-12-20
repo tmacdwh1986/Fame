@@ -1,5 +1,5 @@
 version: '2'
-services: 
+services:
   fame-nginx:
     container_name: fame-nginx
     build:
@@ -13,6 +13,7 @@ services:
     - ./logs/nginx:/var/log/nginx
     depends_on:
     - fame-server
+    - fame-admin
     - fame-front
 
   fame-mysql:
@@ -50,6 +51,18 @@ services:
     - fame-mysql
     restart: always
 
+  fame-admin:
+    container_name: fame-admin
+    build:
+      context: ./
+      dockerfile: ./fame-docker/fame-admin/fame-admin-Dockerfile
+      args:
+        BASE_URL: ${BASE_URL}
+    environment:
+      TZ: Asia/Shanghai
+    expose:
+    - "3001"
+
   fame-front:
     container_name: fame-front
     build:
@@ -59,6 +72,7 @@ services:
         BASE_URL: ${BASE_URL}
         PROXY_HOST: ${PROXY_HOST}
         PROXY_PORT: ${PROXY_PORT}
+        ICP: ${ICP}
     environment:
       TZ: Asia/Shanghai
     expose:
