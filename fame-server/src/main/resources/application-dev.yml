@@ -2,7 +2,7 @@
 spring:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/fame?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://fame-mysql:3306/fame?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
     password: root
 
@@ -11,7 +11,7 @@ fame:
     title: Fame博客
     description: Fame博客
     keywords: Fame,blog,博客
-    send-mail: true
+    sendMail: true
     mail:
       host: xxxx@qq.com
       port: 0

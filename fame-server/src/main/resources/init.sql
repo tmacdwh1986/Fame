@@ -608,12 +608,13 @@ CREATE TABLE articles (
   modified      TIMESTAMP       NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp,
   content       TEXT,
   author_id     INT,
-  hits          INT,
+  hits          INT DEFAULT 0 NOT NULL,
   tags          VARCHAR(255),
   category      VARCHAR(255),
   status        VARCHAR(32),
   type          VARCHAR(32),
-  allow_comment BOOLEAN
+  allow_comment BOOLEAN DEFAULT TRUE NOT NULL,
+  comment_count INT DEFAULT 0 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE comments (
