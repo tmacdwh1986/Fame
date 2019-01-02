@@ -2,8 +2,9 @@ package com.zbw.fame.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
+import tk.mybatis.mapper.annotation.Order;
 
-import javax.persistence.OrderBy;
 import java.util.Date;
 
 /**
@@ -12,7 +13,8 @@ import java.util.Date;
  * @author zbw
  * @since 2017/7/8 9:29
  */
-@EqualsAndHashCode(callSuper = false)
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class Articles extends BaseEntity {
 
@@ -24,7 +26,7 @@ public class Articles extends BaseEntity {
     /**
      * 内容生成时间
      */
-    @OrderBy("desc")
+    @Order("desc")
     private Date created;
 
     /**
@@ -71,4 +73,9 @@ public class Articles extends BaseEntity {
      * 是否允许评论
      */
     private Boolean allowComment;
+
+    /**
+     * 评论数量
+     */
+    private Integer commentCount;
 }
