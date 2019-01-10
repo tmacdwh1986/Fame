@@ -36,7 +36,8 @@
           { path: '/driving', name: 'Driving' },
           { path: '/charging', name: 'Charging' },
           { path: '/status', name: 'Status' },
-          { path: '/about', name: 'About' }
+          { path: '/about', name: 'About' },
+          { path: '/user', name: 'Login' },
         ],
         menuOpen: false
       }
