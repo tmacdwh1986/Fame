@@ -147,7 +147,7 @@
       DemoCharts
     },
     mounted () {
-      setTimeout (() => {
+      setTimeout(() => {
         this.refreshData()
       }, 0)
     },

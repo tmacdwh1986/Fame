@@ -1,6 +1,26 @@
 import { get, post } from './http'
 
 const api = {
+  login (user) {
+    return post('/admin/login', user)
+  },
+  logout () {
+    return post('/admin/logout')
+  },
+  register (user) {
+    return post('/admin/register', user)
+  },
+  getUsername () {
+    return get('/admin/username')
+  },
+  resetPassword (username, oldPassword, newPassword) {
+    let params = {
+      username: username,
+      oldPassword: oldPassword,
+      newPassword: newPassword
+    }
+    return post('/admin/reset', params)
+  },
   getCategories () {
     return get('/category')
   },
