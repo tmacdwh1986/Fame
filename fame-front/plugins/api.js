@@ -7,6 +7,9 @@ const api = {
   logout () {
     return post('/admin/logout')
   },
+  register (user) {
+    return post('/admin/register', user)
+  },
   getUsername () {
     return get('/admin/username')
   },

@@ -1,18 +1,20 @@
 import api from '~/plugins/api'
 
 export const actions = {
-  //登录
   async login ({ commit }, params) {
     return api.login(params)
   },
   async logout ({ commit }) {
     return api.logout()
   },
+  async register ({ commit }, params) {
+    return api.register(params)
+  },
   async getUsername ({ commit }) {
     return api.getUsername()
   },
   async resetPassword ({ commit }, params) {
-    return api.resetPassword(params.username,params.oldPassword,params.newPassword)
+    return api.resetPassword(params.username, params.oldPassword, params.newPassword)
   },
   // 分类列表
   async getCategories ({ commit }) {
